@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+int pars_readFile(char *name, void *file) {
+
+	if (file == NULL) {
+		return -1;
+	}
+
+	file = fopen(name, "wr+");
+
+	return 0;
+}
