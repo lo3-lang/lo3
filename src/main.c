@@ -11,11 +11,12 @@ int main(int argc, char *argv[]) {
 	}
 
 	FILE *file;
-	if (pars_readFile(argv[1], &file)) {
-		lo3_error("Could not load the corosponding file!", argv[1]);
+	if (pars_isFileValid(argv[1], &file)) {
+		lo3_error("Could not load the coresponding file!", argv[1]);
 		return 1;
 	}
 
+	pars_file(file);
 	fclose(file);
 	return 0;
 }

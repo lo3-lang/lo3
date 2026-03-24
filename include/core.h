@@ -1,7 +1,8 @@
 #pragma once
 
 #include <stdio.h>
-int pars_readFile(char *name, FILE **file);
+int pars_isFileValid(char *name, FILE **file);
+int pars_file(FILE *file);
 
 // colorcodes
 #define CLR_RED "\033[31m"

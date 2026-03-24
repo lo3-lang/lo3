@@ -1,8 +1,11 @@
+// Copyright (c) 2026 seesee010.
+// All Rights Reserved.
+
 #include "../include/core.h"
 
 void lo3_warn(const char *msg, const char *context) {
 
-	if (msg == NULL || msg[0] == "\0") {
+	if (msg == NULL || msg[0] == '\0') {
 		lo3_error("Could not warn the shit out it!", context);
 		return;
 	}
@@ -17,7 +20,7 @@ void lo3_warn(const char *msg, const char *context) {
 
 void lo3_error(const char *msg, const char *context) {
 
-	if (msg == NULL || msg[0] == "\0") {
+	if (msg == NULL || msg[0] == '\0') {
 		lo3_warn("Could not error, because there was no error message for the error", NULL);
 	}
 
