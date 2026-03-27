@@ -46,17 +46,17 @@ typedef struct {
 } lo3_var;
 
 lo3_val pars_resv(char type[64]);
-void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2);
+void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]);
 
 // execute func
-void exec_asn(lo3_val a1, lo3_val a2);
-void exec_add(lo3_val a1, lo3_val a2);
-void exec_sub(lo3_val a1, lo3_val a2);
-void exec_mul(lo3_val a1, lo3_val a2);
-void exec_div(lo3_val a1, lo3_val a2);
-void exec_jmp(lo3_val a1, lo3_val a2);
-void exec_call(lo3_val a1, lo3_val a2);
-void exec_callS(lo3_val a1, lo3_val a2);
-void exec_label(lo3_val a1, lo3_val a2);
-void exec_out(lo3_val a1, lo3_val a2);
-void exec_in(lo3_val a1, lo3_val a2);
+void exec_asn(lo3_val a1, lo3_val a2, char array[2]);
+void exec_add(lo3_val a1, lo3_val a2, char array[2]);
+void exec_sub(lo3_val a1, lo3_val a2, char array[2]);
+void exec_mul(lo3_val a1, lo3_val a2, char array[2]);
+void exec_div(lo3_val a1, lo3_val a2, char array[2]);
+void exec_jmp(lo3_val a1, lo3_val a2, char array[2]);
+void exec_call(lo3_val a1, lo3_val a2, char array[2]);
+void exec_callS(lo3_val a1, lo3_val a2, char array[2]);
+void exec_label(lo3_val a1, lo3_val a2, char array[2]);
+void exec_out(lo3_val a1, lo3_val a2, char array[2]);
+void exec_in(lo3_val a1, lo3_val a2, char array[2]);

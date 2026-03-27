@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
+
 int pars_isFileValid(char *name, FILE **file);
 int pars_file(FILE *file);
 
