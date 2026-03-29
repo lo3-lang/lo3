@@ -39,14 +39,10 @@ typedef enum {
 	STM_in = '<',
 } lo3_cmds;
 
-typedef struct {
-
-	lo3_types type;
-	char name[64];
-} lo3_var;
-
+////////// parser //////////
 lo3_val pars_resv(char type[64]);
 void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]);
+int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2);
 
 // execute func
 void exec_asn(lo3_val a1, lo3_val a2, char array[2]);

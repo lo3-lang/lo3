@@ -14,3 +14,6 @@ int pars_file(FILE *file);
 
 void lo3_warn(const char *msg, const char *context);
 void lo3_error(const char *msg, const char *context);
+
+///// from parsing.c /////
+extern int currentLine;

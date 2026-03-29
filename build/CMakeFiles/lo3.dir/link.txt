@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/lo3.dir/link.d CMakeFiles/lo3.dir/src/execute.c.o CMakeFiles/lo3.dir/src/main.c.o CMakeFiles/lo3.dir/src/parsing.c.o CMakeFiles/lo3.dir/src/var.c.o CMakeFiles/lo3.dir/src/warnings.c.o -o lo3

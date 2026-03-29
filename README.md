@@ -8,16 +8,42 @@ lo3 {FILENAME}
 This will start the interpreter and run your code.
 
 ## Compile it yourself
-linux:
+
+### Linux:
 ```bash
 cmake -B build
 cmake --build build
 ./build/lo3 test.lo3
 ```
 
-Win:
+### Win:
 ```powershell
 cmake -B build
 cmake --build build
 .\build\Debug\lo3.exe test.lo3
 ```
+
+## Add it to the PATH
+
+### Linux:
+
+If you are root / have rights to sudo:
+```
+sudo cp ./build/lo3 /usr/local/bin/
+```
+
+Or if you dont:
+```
+cp ./build/lo3 ~/.local/bin/
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+> Then you can just write `lo3 ...`
+
+### Windows:
+Press `Win+R` input `sysdm.cpl`
+In more (or any other name) > Environment Variables
+In path add a new index and input there the path to this program.
+
+For example:
+`C:\Users\yourUserName\Desktop\lo3-core\build\`
