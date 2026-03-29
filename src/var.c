@@ -13,8 +13,8 @@ void var_init(void) {
 
 int var_find(const char *name) {
 
-	for (int i = 0; i < 256; i++) {
-		if (list->array[i]->name == name) {
+	for (int i = 0; i < list->index; i++) {
+		if (strcmp(list->array[i]->name, name) == 0) {
 			return i;
 		}
 	}
@@ -23,12 +23,17 @@ int var_find(const char *name) {
 
 void var_create(const char *name, int type) {
 
-	if (name)
-		if (list->index >= 256) {
-			lo3_error("Max. variables reached! Please free() any var before define any "
-			          "again!",
-			          name);
-		}
+	if (strcmp(name, "") != 0 || name == NULL) {
+		lo3_error("Name is invalid, Please check your code!", name);
+		return;
+	}
+
+	if (list->index >= 256) {
+		lo3_error("Max. variables reached! Please free() any var before define any "
+		          "again!",
+		          name);
+		return;
+	}
 
 	// create new var
 	lo3_var *var = malloc(sizeof(lo3_var));
@@ -43,7 +48,7 @@ void var_create(const char *name, int type) {
 void var_set(const char *name, lo3_var value) {
 
 	int index = var_find(name);
-	if (value.type) {
+	if (!value.type) {
 
 		list->array[index]->value.num = value.value.num;
 		list->array[index]->type = 0;
@@ -65,6 +70,17 @@ lo3_var *var_get(const char *name) {
 	return list->array[index];
 }
 
+/*
+ * algo
+ * designed to:
+ * 1. delete on index {returnVal} (/free)
+ * 2. put val index-1 in index {returnVal}
+ * index-- so index can be used again.
+ *
+ * Why?:
+ * This is designed as it is, because so it is a fast and short algo.
+ * O(1) complexity !!!
+ */
 void var_free(const char *name) {
 
 	int returnVal = var_find(name);
@@ -77,4 +93,13 @@ void var_free(const char *name) {
 		    name);
 		return;
 	}
+
+	if (list->array[returnVal]->type == 3) {
+		free(list->array[returnVal]->value.string);
+	}
+
+	free(list->array[returnVal]);
+
+	list->array[returnVal] = list->array[list->index - 1];
+	list->index--;
 }

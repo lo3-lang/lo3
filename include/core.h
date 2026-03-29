@@ -17,3 +17,5 @@ void lo3_error(const char *msg, const char *context);
 
 ///// from parsing.c /////
 extern int currentLine;
+
+void var_init(void);

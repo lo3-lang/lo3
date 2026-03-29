@@ -1,5 +1,5 @@
 #include "../include/core.h"
-#include "../include/specific-language.h"
+#include "../include/var.h"
 
 int currentLine = 0;
 
@@ -127,7 +127,22 @@ lo3_val pars_resv(char type[64]) {
 
 	case TYPE_var:
 
-		// not avaible now
+		// resolve var
+		lo3_var *var = var_get(&type[1]);
+
+		if (var == NULL) {
+			lo3_error("Could not resolve var, because it was invalid! Or empty.",
+			          &type[1]);
+			break;
+		}
+
+		result.type = var->type;
+
+		if (!var->type) {
+			result.num = var->value.num;
+		} else {
+			result.string = var->value.string;
+		}
 		break;
 
 	default:
@@ -187,6 +202,10 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 	case CNT_label:
 
 		exec_label(a1, a2, array);
+		break;
+
+	case CNT_new:
+		exec_new(a1, a2, array);
 		break;
 
 	case STM_out:

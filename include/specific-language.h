@@ -29,14 +29,15 @@ typedef enum {
 	ALU_mul = '*',
 
 	// control
-	CNT_jmp = 'd',
-	CNT_call = 'c',
-	CNT_callS = 'C',
-	CNT_label = 'l',
+	CNT_jmp = 'd',   // define a jmp point
+	CNT_call = 'c',  // call extern lib (uses fixed path)
+	CNT_callS = 'C', // call extern lib (better func!, uses relative path)
+	CNT_label = 'l', // define new label
+	CNT_new = 'n',   // define new variable
 
 	// stream
-	STM_out = '>',
-	STM_in = '<',
+	STM_out = '>', // shifts sth into stdout
+	STM_in = '<',  // shifts sth into stdin
 } lo3_cmds;
 
 ////////// parser //////////
@@ -45,6 +46,7 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]);
 int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2);
 
 // execute func
+void exec_new(lo3_val a1, lo3_val a2, char array[2]);
 void exec_asn(lo3_val a1, lo3_val a2, char array[2]);
 void exec_add(lo3_val a1, lo3_val a2, char array[2]);
 void exec_sub(lo3_val a1, lo3_val a2, char array[2]);

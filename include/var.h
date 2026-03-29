@@ -18,3 +18,5 @@ typedef struct {
 	int index;
 	lo3_var *array[256];
 } lo3_varList;
+
+lo3_var *var_get(const char *name);

@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
+	var_init();
 	pars_file(file);
 	fclose(file);
 	return 0;
