@@ -1,3 +1,0 @@
-/home/seesee1/Desktop/lo3-core/build/CMakeFiles/lo3.dir
-/home/seesee1/Desktop/lo3-core/build/CMakeFiles/edit_cache.dir
-/home/seesee1/Desktop/lo3-core/build/CMakeFiles/rebuild_cache.dir
