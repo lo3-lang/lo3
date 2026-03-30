@@ -127,6 +127,7 @@ lo3_val pars_resv(char type[64]) {
 	case TYPE_num:
 
 		result.value.num = atoi(&type[1]);
+		result.chooseType = 0;
 		break;
 
 	case TYPE_array:
@@ -137,11 +138,13 @@ lo3_val pars_resv(char type[64]) {
 		// ///// More Information: /////
 		// The syntax '*' is by now not fully valid.
 		// Cuz: there should be a file called "array.c" and "array.h", it's like var
+		// needs to relove thype like var
 		break;
 
 	case TYPE_string:
 
 		result.value.string = &type[1];
+		result.chooseType = 3;
 		break;
 
 	case TYPE_var:
@@ -232,6 +235,10 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 
 	case CNT_new:
 		exec_new(a1, a2, array);
+		break;
+
+	case CNT_free:
+		exec_free(a1, a2, array);
 		break;
 
 	case STM_out:

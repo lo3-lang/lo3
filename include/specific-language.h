@@ -45,6 +45,8 @@ typedef enum {
 	// stream
 	STM_out = '>', // shifts sth into stdout
 	STM_in = '<',  // shifts sth into stdin
+
+	CNT_free = 'f', // free a var
 } lo3_cmds;
 
 ////////// parser //////////

@@ -4,6 +4,7 @@
 #include "../include/var.h"
 #include "../include/core.h"
 #include <stdlib.h>
+#include <string.h>
 
 lo3_varList *list = NULL;
 
@@ -55,12 +56,20 @@ void var_set(const char *name, lo3_var value) {
 		lo3_error("Could not find var, did you write it correctly?", name);
 		return;
 	}
+
+	// if there is a assignation (again), then it will work...
+	if (list->array[index]->type == 3 && list->array[index]->value.string != NULL) {
+		free(list->array[index]->value.string);
+		list->array[index]->value.string = NULL;
+	}
+
 	if (!value.type) {
 
 		list->array[index]->value.num = value.value.num;
 		list->array[index]->type = 0;
 	} else {
-		list->array[index]->value.string = value.value.string;
+		// var is available outside of the stack; -> heap; // don't forget to free() mem!
+		list->array[index]->value.string = strdup(value.value.string);
 		list->array[index]->type = 3;
 	}
 }
@@ -101,10 +110,11 @@ void var_free(const char *name) {
 		return;
 	}
 
-	if (list->array[returnVal]->type == 3)
+	if (list->array[returnVal]->type == 3) {
 		free(list->array[returnVal]->value.string);
-
+	}
 	free(list->array[returnVal]);
+
 	list->array[returnVal] = list->array[list->index - 1];
 	list->index--;
 }
