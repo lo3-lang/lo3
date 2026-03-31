@@ -88,12 +88,7 @@ void exec_asn(lo3_val a1, lo3_val a2, char array[2]) {
 	lo3_var newVar;
 	newVar.type = (a2.chooseType == 3) ? 3 : 0;
 
-	if (!a2.chooseType) {
-		newVar.value.num = a2.value.num;
-
-	} else {
-		newVar.value.string = a2.value.string;
-	}
+	newVar.value = a2.value;
 
 	var_set(name, newVar);
 }
@@ -269,11 +264,7 @@ void exec_in(lo3_val a1, lo3_val a2, char array[2]) {
 	lo3_var newVar;
 	newVar.type = temp.chooseType;
 
-	if (!temp.chooseType) {
-		newVar.value.num = temp.value.num;
-	} else {
-		newVar.value.string = temp.value.string;
-	}
+	newVar.value = temp.value;
 
 	// correct the a1.~type
 	if (!a1.chooseType) {
