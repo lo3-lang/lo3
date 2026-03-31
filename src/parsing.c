@@ -3,8 +3,8 @@
 //
 // You can find todos by reading the "todo" blocks.
 // But please read the whole block not only the single todo line
-#include "../include/core.h"
-#include "../include/var.h"
+#include "./internal/core.h"
+#include "./internal/var.h"
 
 int currentLine = 0;
 

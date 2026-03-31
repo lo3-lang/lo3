@@ -1,11 +1,9 @@
 // Copyright (c) 2026 seesee010
 // Read the License file for more informations about the license.
 
-#include "../include/additional-naming.h"
-#include "../include/core.h"
-#include "../include/specific-language.h"
-#include "../include/var.h"
-#include <stdio.h>
+#include "./internal/core.h"
+#include "./internal/specific-language.h"
+#include "./internal/var.h"
 
 void exec_new(lo3_val a1, lo3_val a2, char array[2]) {
 

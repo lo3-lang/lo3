@@ -1,10 +1,8 @@
 // Copyright (c) 2026 seesee010
 // Read the License file for more informations about the license.
 
-#include "../include/var.h"
-#include "../include/core.h"
-#include <stdlib.h>
-#include <string.h>
+#include "./internal/var.h"
+#include "./internal/core.h"
 
 lo3_varList *list = NULL;
 

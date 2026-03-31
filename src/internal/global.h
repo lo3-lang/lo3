@@ -1,6 +1,6 @@
 #pragma once
 
-#include "specific-language.h"
+#include "bare-define.h"
 
 #define G_SIZE 100
 typedef struct {
