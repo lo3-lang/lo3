@@ -234,7 +234,7 @@ void exec_out(lo3_val a1, lo3_val a2, char array[2]) {
 	char *name;
 
 	if (!a1.chooseType) {
-		snprintf(buf, sizeof(buf), "%f", a1.value.num);
+		snprintf(buf, sizeof(buf), "%d", a1.value.num);
 		name = buf;
 	} else {
 		name = a1.value.string;

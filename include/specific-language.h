@@ -13,15 +13,18 @@ typedef enum {
 	TYPE_var = '%'
 } lo3_types;
 
+typedef union {
+	int num;
+	char *string;
+} lo3_value;
+
 typedef struct {
 
 	lo3_types type;
 	int chooseType;
 
-	union {
-		int num;
-		char *string;
-	} value;
+	lo3_value value;
+
 } lo3_val;
 
 typedef enum {

@@ -10,10 +10,7 @@ typedef struct {
 	char name[64];
 	int type; // 0 = num, 3 = string
 
-	union {
-		int num;
-		char *string;
-	} value;
+	lo3_value value;
 } lo3_var;
 
 typedef struct {
