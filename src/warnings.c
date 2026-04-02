@@ -11,11 +11,11 @@ void lo3_warn(const char *msg, const char *context) {
 	}
 
 	if (context != NULL) {
-		fprintf(stderr,
-		        CLR_BOLD CLR_YELLOW "[WARNING]: %s " CLR_RESET "(?: '%s', line: %d)\n", msg,
-		        context, currentLine);
+		(void)fprintf(
+		    stderr, CLR_BOLD CLR_YELLOW "[WARNING]: %s " CLR_RESET "(?: '%s', line: %d)\n",
+		    msg, context, currentLine);
 	} else {
-		fprintf(stderr, CLR_BOLD CLR_YELLOW "[WARNING]: %s \n" CLR_RESET, msg);
+		(void)fprintf(stderr, CLR_BOLD CLR_YELLOW "[WARNING]: %s \n" CLR_RESET, msg);
 	}
 }
 
@@ -26,9 +26,10 @@ void lo3_error(const char *msg, const char *context) {
 	}
 
 	if (context != NULL) {
-		fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s " CLR_RESET "(?: '%s', line: %d)\n",
-		        msg, context, currentLine);
+		(void)fprintf(stderr,
+		              CLR_BOLD CLR_RED "[ERROR]: %s " CLR_RESET "(?: '%s', line: %d)\n",
+		              msg, context, currentLine);
 	} else {
-		fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
+		(void)fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
 	}
 }

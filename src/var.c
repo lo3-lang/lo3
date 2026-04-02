@@ -1,8 +1,24 @@
 // Copyright (c) 2026 seesee010
 // Read the License file for more informations about the license.
 
-#include "./internal/var.h"
+#include "./internal/bare-var.h"
 #include "./internal/core.h"
+
+// dev
+struct lo3_var {
+
+	char name[64];
+	int type; // 0 = num, 3 = string
+
+	lo3_value value;
+};
+
+struct lo3_varList {
+
+	int index;
+	lo3_var *array[256];
+};
+//
 
 lo3_varList *list = NULL;
 
@@ -38,40 +54,14 @@ void var_create(const char *name, int type) {
 
 	// create new var
 	lo3_var *var = malloc(sizeof(lo3_var));
-	memset(var, 0, sizeof(lo3_var)); // so var_free works correctly
+	(void)memset(var, 0, sizeof(lo3_var)); // so var_free works correctly
 
-	strncpy(var->name, name, 64);
+	(void)strncpy(var->name, name, 64);
 	var->type = type;
 
 	// save it
 	list->array[list->index] = var;
 	list->index++;
-}
-
-void var_set(const char *name, lo3_var value) {
-
-	int index = var_find(name);
-
-	if (index == -1) {
-		lo3_error("Could not find var, did you write it correctly?", name);
-		return;
-	}
-
-	// if there is a assignation (again), then it will work...
-	if (list->array[index]->type == 3 && list->array[index]->value.string != NULL) {
-		free(list->array[index]->value.string);
-		list->array[index]->value.string = NULL;
-	}
-
-	if (!value.type) {
-
-		list->array[index]->value.num = value.value.num;
-		list->array[index]->type = 0;
-	} else {
-		// var is available outside of the stack; -> heap; // don't forget to free() mem!
-		list->array[index]->value.string = strdup(value.value.string);
-		list->array[index]->type = 3;
-	}
 }
 
 lo3_var *var_get(const char *name) {
@@ -127,4 +117,53 @@ void var_freeAll(void) {
 
 	free(list);
 	list = NULL;
+}
+
+void var_setNum(const char *name, int num) {
+
+	int i = var_find(name);
+
+	if (i == -1) {
+		lo3_error("<var> not found, please check if this is the right var name", name);
+		return;
+	}
+
+	if (list->array[i]->type == 3) {
+		lo3_error("Can not set <var> to any num, because its type is set to string!", name);
+		return;
+	} else {
+		list->array[i]->value.num = num;
+	}
+}
+void var_setString(const char *name, char *string) {
+
+	int i = var_find(name);
+
+	if (i == -1) {
+		lo3_error("<var> not found, please check if this is the right var name", name);
+		return;
+	}
+
+	if (list->array[i]->type == 0) {
+		lo3_error("Can not set <var> to any string, because its type is set to num", name);
+		return;
+	}
+
+	list->array[i]->value.string = string;
+}
+
+int var_getNum(const lo3_var *var) {
+	return var->value.num;
+}
+
+const char *var_getString(const lo3_var *var) {
+	return var->value.string;
+}
+
+int var_getType(const lo3_var *var) {
+	return var->type;
+}
+
+lo3_value var_getValue(const lo3_var *var) {
+	return var->value;
 }

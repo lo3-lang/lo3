@@ -25,8 +25,8 @@ typedef enum {
 	CNT_new = 'n',   // define new variable
 
 	// stream
-	STM_out = '>', // shifts sth into stdout
-	STM_in = '<',  // shifts sth into stdin
+	STM_out = 'o', // shifts sth into stdout
+	STM_in = 'i',  // shifts sth into stdin
 
 	CNT_free = 'f', // free a var
 } lo3_cmds;

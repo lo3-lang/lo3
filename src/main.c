@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	pars_file(file);
 
 	// cleanup
-	fclose(file);
+	(void)fclose(file);
 	var_freeAll();
 	return 0;
 }

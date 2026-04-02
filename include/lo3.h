@@ -9,4 +9,5 @@
 
 #include "../src/internal/additional-naming.h"
 #include "../src/internal/bare-define.h"
+#include "../src/internal/bare-var.h"
 #include "../src/internal/global.h"

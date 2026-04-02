@@ -3,8 +3,8 @@
 //
 // You can find todos by reading the "todo" blocks.
 // But please read the whole block not only the single todo line
+#include "./internal/bare-var.h"
 #include "./internal/core.h"
-#include "./internal/var.h"
 
 int currentLine = 0;
 
@@ -53,12 +53,12 @@ int pars_file(FILE *file) {
 		lo3_cmds cmds = (lo3_cmds)line[1];
 
 		// find the TYPES of arg
-		sscanf(&line[3], " %s %s", arg1, arg2);
+		(void)sscanf(&line[3], " %s %s", arg1, arg2);
 
 		lo3_val a1 = pars_resv(arg1);
 		lo3_val a2 = pars_resv(arg2);
 
-		pars_getToKnowType(buff_types, a1, a2);
+		(void)pars_getToKnowType(buff_types, a1, a2);
 
 		// todo:
 		// parse that prefix away.
@@ -163,10 +163,10 @@ lo3_val pars_resv(char type[64]) {
 			break;
 		}
 
-		result.type = var->type ? TYPE_string : TYPE_num;
-		result.value = var->value;
+		result.type = var_getType(var) ? TYPE_string : TYPE_num;
+		result.value = var_getValue(var);
 
-		result.chooseType = var->type ? 3 : 0;
+		result.chooseType = var_getType(var) ? 3 : 0;
 
 		// type: 0=num, 3=string (from ATYPE_ ... bitmasks, 1 and 2 are getting resolved,
 		// so it would be useless if you can write them)
@@ -255,7 +255,7 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 		break;
 
 	default:
-		lo3_error("Unknown command!", NULL);
+		lo3_error("Unknown command!", "");
 		break;
 	}
 }

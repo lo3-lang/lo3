@@ -1,9 +1,9 @@
 // Copyright (c) 2026 seesee010
 // Read the License file for more informations about the license.
 
+#include "./internal/bare-var.h"
 #include "./internal/core.h"
 #include "./internal/specific-language.h"
-#include "./internal/var.h"
 
 void exec_new(lo3_val a1, lo3_val a2, char array[2]) {
 
@@ -83,12 +83,12 @@ void exec_asn(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	lo3_var newVar;
-	newVar.type = (a2.chooseType == 3) ? 3 : 0;
-
-	newVar.value = a2.value;
-
-	var_set(name, newVar);
+	// set
+	if (!a2.chooseType) {
+		var_setNum(name, a2.value.num);
+	} else {
+		var_setString(name, a2.value.string);
+	}
 }
 
 ///// alu /////
@@ -118,8 +118,7 @@ void exec_add(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	oldVar->value.num += a2.value.num;
-	var_set(name, *oldVar);
+	var_setNum(name, var_getNum(oldVar) + a2.value.num);
 }
 
 void exec_sub(lo3_val a1, lo3_val a2, char array[2]) {
@@ -147,8 +146,7 @@ void exec_sub(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	oldVar->value.num -= a2.value.num;
-	var_set(name, *oldVar);
+	var_setNum(name, var_getNum(oldVar) - a2.value.num);
 }
 
 void exec_mul(lo3_val a1, lo3_val a2, char array[2]) {
@@ -176,8 +174,7 @@ void exec_mul(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	oldVar->value.num *= a2.value.num;
-	var_set(name, *oldVar);
+	var_setNum(name, var_getNum(oldVar) * a2.value.num);
 }
 
 void exec_div(lo3_val a1, lo3_val a2, char array[2]) {
@@ -205,8 +202,7 @@ void exec_div(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	oldVar->value.num /= a2.value.num;
-	var_set(name, *oldVar);
+	var_setNum(name, var_getNum(oldVar) / a2.value.num);
 }
 
 void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
@@ -258,20 +254,17 @@ void exec_in(lo3_val a1, lo3_val a2, char array[2]) {
 
 	lo3_val temp = pars_resv(buf);
 
-	// transform lo3_val -> lo3_var
-	lo3_var newVar;
-	newVar.type = temp.chooseType;
-
-	newVar.value = temp.value;
-
 	// correct the a1.~type
 	if (!a1.chooseType) {
 		snprintf(numNameBuf, sizeof(numNameBuf), "%d", a1.value.num);
 		name = numNameBuf;
-
 	} else {
 		name = a1.value.string;
 	}
 
-	var_set(name, newVar);
+	if (!a2.chooseType) {
+		var_setNum(name, a2.value.num);
+	} else {
+		var_setString(name, a2.value.string);
+	}
 }
