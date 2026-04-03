@@ -5,6 +5,7 @@
 // But please read the whole block not only the single todo line
 #include "./internal/bare-var.h"
 #include "./internal/core.h"
+#include "internal/bare-define.h"
 
 int currentLine = 0;
 
@@ -58,6 +59,11 @@ int pars_file(FILE *file) {
 		lo3_val a1 = pars_resv(arg1);
 		lo3_val a2 = pars_resv(arg2);
 
+		// todo:
+		// delete the func pars_getToKnowType(...)
+		//
+		// ///// More Information /////
+		// this func is not used anymore, because buff_types is ether.
 		(void)pars_getToKnowType(buff_types, a1, a2);
 
 		// todo:
@@ -92,7 +98,7 @@ int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2) {
 	// num[] could be deleted
 	//
 	// ///// More Information /////
-	// Deleted because num[] is an additional array, which is sth really not needed...
+	// Deleted because num[] is an additional array, which is not needed...
 	// simply using buffer[] direct instead of num[].
 	for (int i = 0; i < 2; i++) {
 		switch (possibleType[i]) {
@@ -170,8 +176,19 @@ lo3_val pars_resv(char type[64]) {
 
 		// type: 0=num, 3=string (from ATYPE_ ... bitmasks, 1 and 2 are getting resolved,
 		// so it would be useless if you can write them)
+
+		// todo:
+		// If double exists: var need to resolve this!
 		break;
 
+	case TYPE_double:
+
+		// todo:
+		// Add doubles in lo3
+		//
+		// ///// More Information: /////
+		// Every exec_ will need other/more/etc code.
+		break;
 	default:
 
 		lo3_error("Could not fild the corresponding type! …\n Please enter something valid,"

@@ -5,12 +5,14 @@ typedef enum {
 	TYPE_num = '$',
 	TYPE_string = '_',
 	TYPE_array = '*',
-	TYPE_var = '%'
+	TYPE_var = '%',
+	TYPE_double = '/'
 } lo3_types;
 
 typedef union {
 	int num;
 	char *string;
+	double numD;
 } lo3_value;
 
 typedef struct {

@@ -2,6 +2,8 @@
 // Read the License file for more informations about the license.
 
 #include "./internal/core.h"
+#include "internal/bare-var.h"
+#include <stdio.h>
 
 int main(int argc, char *argv[]) {
 

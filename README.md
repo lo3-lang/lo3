@@ -25,14 +25,14 @@ This will start the interpreter and run your code.
 ```bash
 cmake -B build
 cmake --build build
-./build/lo3 test.lo3
+./bin/lo3 test.lo3
 ```
 
 ### Win:
 ```powershell
 cmake -B build
 cmake --build build
-.\build\Debug\lo3.exe test.lo3
+.\bin\lo3.exe test.lo3
 ```
 
 ## Add it to the PATH
