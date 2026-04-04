@@ -9,7 +9,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -23,7 +23,7 @@ jobs:
           xz -zk lo3-linux.tar
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             lo3-linux.zip
@@ -33,7 +33,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build
         run: |
@@ -44,12 +44,10 @@ jobs:
         run: |
           Compress-Archive -Path bin\lo3.exe -DestinationPath lo3-windows.zip
           tar -cf lo3-windows.tar -C bin lo3.exe
-          xz -zk lo3-windows.tar
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             lo3-windows.zip
             lo3-windows.tar
-            lo3-windows.tar.xz
