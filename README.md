@@ -1,5 +1,7 @@
 # lo3 programming language
 
+[![Release](https://github.com/lo3-lang/lo3-core/actions/workflows/release.yml/badge.svg)](https://github.com/lo3-lang/lo3-core/actions/workflows/release.yml)
+
 ## Run lo3 at your own machine
 
 ```bash
