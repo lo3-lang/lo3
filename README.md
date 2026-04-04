@@ -8,6 +8,12 @@
 
 > Currently the code is only available in linux, because in windows there is no getline ... 
 
+## What is this language about?
+lo3 is a token based interpreted programming language written in C.
+
+## Learn the syntax
+See [learn-the-syntax](https://github.com/lo3-lang/learn-the-syntax) for examples and documentation.
+
 ## Run lo3 at your own machine
 
 ```bash
@@ -49,12 +55,12 @@ cmake --build build
 
 If you are root / have rights to sudo:
 ```
-sudo cp ./build/lo3 /usr/local/bin/
+sudo cp ./bin/lo3 /usr/local/bin/
 ```
 
 Or if you dont:
 ```
-cp ./build/lo3 ~/.local/bin/
+cp ./bin/lo3 ~/.local/bin/
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
