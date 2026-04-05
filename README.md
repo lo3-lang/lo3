@@ -11,7 +11,9 @@
 ## What is this language about?
 lo3 is a token based interpreted programming language written in C.
 
-## Learn the syntax
+## Website
+See [Main Website](https://lo3-lang.github.com)
+
 See [learn-the-syntax](https://lo3-lang.github.io/learn-the-syntax/) for examples and documentation.
 
 ## Run lo3 at your own machine
