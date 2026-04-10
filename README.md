@@ -34,6 +34,8 @@ This will start the interpreter and run your code.
 | Output/STDOUT | ✅ |
 | Operating with vars | ✅ |
 | Operating with g[] | ❌ |
+| Manually exiting with 0 or 1 | ✅ |
+| Auto exiting | ✅ |
 
 ## Compile it yourself
 
