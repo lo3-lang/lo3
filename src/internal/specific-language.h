@@ -29,11 +29,16 @@ typedef enum {
 	STM_in = 'i',  // shifts sth into stdin
 
 	CNT_free = 'f', // free a var
+
+	RET_good = '0', // stop the program with exit code 0
+	RET_bad = '1',  // return the program with exit code 1
+	RET_smart = 'r' // some feature which needs call func, but this is not avaible yet...
+
 } lo3_cmds;
 
 ////////// parser //////////
 lo3_val pars_resv(char type[64]);
-void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]);
+int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]);
 int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2);
 
 // execute func

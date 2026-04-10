@@ -6,6 +6,7 @@
 #include "./internal/bare-var.h"
 #include "./internal/core.h"
 #include "internal/bare-define.h"
+#include "internal/specific-language.h"
 
 int currentLine = 0;
 
@@ -72,10 +73,15 @@ int pars_file(FILE *file) {
 		// ///// More Information: /////
 		// here the program should parse the prefix, for example: '$' away.
 		// So the Exec dont have to do that.
-		pars_dispatch(cmds, a1, a2, buff_types);
+		int returnVal = pars_dispatch(cmds, a1, a2, buff_types);
+
+		if (returnVal != -1) {
+			return returnVal;
+		}
+
+		free(line);
+		return 0;
 	}
-	free(line);
-	return 0;
 }
 
 int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2) {
@@ -174,8 +180,8 @@ lo3_val pars_resv(char type[64]) {
 
 		result.chooseType = var_getType(var) ? 3 : 0;
 
-		// type: 0=num, 3=string (from ATYPE_ ... bitmasks, 1 and 2 are getting resolved,
-		// so it would be useless if you can write them)
+		// type: 0=num, 3=string (from ATYPE_ ... bitmasks, 1 and 2 are getting
+		// resolved, so it would be useless if you can write them)
 
 		// todo:
 		// If double exists: var need to resolve this!
@@ -191,8 +197,10 @@ lo3_val pars_resv(char type[64]) {
 		break;
 	default:
 
-		lo3_error("Could not fild the corresponding type! …\n Please enter something valid,"
-		          "You may want to visit https://github.com/lo3-lang/learn-the-syntax !!!",
+		lo3_error("Could not fild the corresponding type! …\n Please enter "
+		          "something valid,"
+		          "You may want to visit "
+		          "https://github.com/lo3-lang/learn-the-syntax !!!",
 		          type);
 		break;
 	}
@@ -203,8 +211,9 @@ lo3_val pars_resv(char type[64]) {
 // char array[2] should be deleted in every exec_...
 //
 // ///// More Information /////
-// Now array is very useless and not very helping. Now lo3_val has chooseType to choose its type.
-void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
+// Now array is very useless and not very helping. Now lo3_val has chooseType to choose its
+// type.
+int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 
 	switch (cmd) {
 
@@ -256,6 +265,7 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 	case CNT_new:
 		exec_new(a1, a2, array);
 		break;
+	https: // github.com/lo3-lang/lo3-core.git
 
 	case CNT_free:
 		exec_free(a1, a2, array);
@@ -271,8 +281,19 @@ void pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 		exec_in(a1, a2, array);
 		break;
 
+	case RET_good:
+
+		lo3_warn("Now it will stop the interpreter.\nEXITCODE: 0", "");
+		return 0;
+
+	case RET_bad:
+		lo3_warn("Now it will stop the interpreter\nEXITCODE: 1", "");
+		return 1;
+
 	default:
 		lo3_error("Unknown command!", "");
 		break;
 	}
+
+	return -1;
 }
