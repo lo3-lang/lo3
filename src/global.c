@@ -35,7 +35,7 @@ void g_set(int index, lo3_val value) {
 		return;
 	}
 
-	if (g.value[index] = NULL) {
+	if (g.value[index] == NULL) {
 		// todo:
 		// inpliment that feature
 		//
@@ -47,7 +47,7 @@ void g_set(int index, lo3_val value) {
 		// else Invalid
 		// the whole with switch cases !
 
-		g.value[index].chooseType = 0//type, replace 0 with the coresponding type!;
+		g.value[index].chooseType = 0;//type, replace 0 with the coresponding type!
 	}
 	g.value[index] = value;
 }

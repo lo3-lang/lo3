@@ -158,7 +158,7 @@ lo3_val pars_resv(char type[64]) {
 		// not allowed: "*A"
 		
 		// *100 -> _Hello
-		int value = g_get(atoi(&tpye[1]));
+		int value = g_get(atoi(&type[1]));
 
 		result.type = g_getType(value) ? TYPE_string : TYPE_num;
 		result.value = g_getValue(value);
