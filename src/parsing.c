@@ -5,8 +5,9 @@
 // But please read the whole block not only the single todo line
 #include "./internal/bare-var.h"
 #include "./internal/core.h"
-#include "internal/bare-define.h"
-#include "internal/specific-language.h"
+#include "./internal/bare-define.h"
+#include "./internal/specific-language.h"
+#include "./internal/global.h"
 
 int currentLine = 0;
 
@@ -150,13 +151,18 @@ lo3_val pars_resv(char type[64]) {
 
 	case TYPE_array:
 
-		// todo:
-		// create arrays in lo3
+		// logic:
+		// *X, lookup X, resolve the value as long as it is a number,
+		// 0 - 9 counts as values
 		//
-		// ///// More Information: /////
-		// The syntax '*' is by now not fully valid.
-		// Cuz: there should be a file called "array.c" and "array.h", it's like var
-		// needs to relove thype like var
+		// not allowed: "*A"
+		
+		// *100 -> _Hello
+		int value = g_get(atoi(&tpye[1]));
+
+		result.type = g_getType(value) ? TYPE_string : TYPE_num;
+		result.value = g_getValue(value);
+		result.chooseType = g_getType(value) ? 3 : 0;
 		break;
 
 	case TYPE_string:

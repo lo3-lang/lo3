@@ -2,6 +2,8 @@
 #include "./internal/core.h"
 #include <stdio.h>
 
+// 0: $100, chooseType = 0;
+
 struct lo3_g {
 	lo3_val value[G_SIZE];
 };
@@ -32,6 +34,21 @@ void g_set(int index, lo3_val value) {
 		          buf);
 		return;
 	}
+
+	if (g.value[index] = NULL) {
+		// todo:
+		// inpliment that feature
+		//
+		// ///// More Informations /////
+		// Look at the first char of value,
+		// if [0] is $ -> type 0
+		// if [0] is _ -> type type 3
+		// if [0] is / -> type 2
+		// else Invalid
+		// the whole with switch cases !
+
+		g.value[index].chooseType = 0//type, replace 0 with the coresponding type!;
+	}
 	g.value[index] = value;
 }
 
@@ -59,4 +76,43 @@ int g_isSet(int index) {
 	}
 
 	return 1;
+}
+
+int g_getType(int index) {
+
+	lo3_val buf;
+
+	if (index > 100 || index < 0) {
+		buf.chooseType = -1;
+		return buf;
+	}
+	
+	return  g.value[index].chooseType;
+
+}
+
+int g_setType(int index, lo3_val type) {
+
+	lo3_val buf;
+
+	if (index > 100 || index < 0) {
+		buf.chooseType = -1;
+		lo3_error("setting Type: Wrong Index, you input any out of bounce!", index);
+		return -1;
+
+	}
+
+	if (type.chooseType > 3  || type.chooseType < 0) {
+		buf.chooseType = -1;
+		lo3_error("setting Type: Wrong datatype, what are you doing?", type);
+		return -1;
+	}
+
+	g.value[index].chooseType = type.chooseType;
+
+	return 0;
+}
+
+int g_getValue(int index) {
+
 }
