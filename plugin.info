@@ -1,7 +1,7 @@
 #general
 name=Core
 description="Just the core lib. Main system for lo3"
-version=--not-depl-ready
+version=0.1
 api-version=0
 author=seesee010
 License=GPL-2.0
