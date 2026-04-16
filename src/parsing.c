@@ -89,6 +89,7 @@ int pars_file(FILE *file) {
 		int returnVal = pars_dispatch(cmds, a1, a2, buff_types);
 
 		if (returnVal != -1) {
+			free(line);
 			return returnVal;
 		}
 
