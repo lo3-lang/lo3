@@ -283,7 +283,6 @@ int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 	case CNT_new:
 		exec_new(a1, a2, array);
 		break;
-	https: // github.com/lo3-lang/lo3-core.git
 
 	case CNT_free:
 		exec_free(a1, a2, array);
