@@ -36,6 +36,13 @@ int pars_file(FILE *file) {
 	char arg1[64], arg2[64];
 	char buff_types[2];
 
+	// todo: make getline avaible on other os
+	// 
+	// ///// MORE INFORMATIONS /////
+	// getline is not a c standardized lib and therefore should be defined somewhere else.
+	// Ways to solve that problem:
+	// - Create a getline MACRO and use that here
+	// - use the preprocessor funcs, like ifdef check for linux and win etc
 	while (getline(&line, &len, file) != -1) {
 
 		currentLine++;
