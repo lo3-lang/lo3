@@ -97,14 +97,14 @@ int g_setType(int index, lo3_val type) {
 
 	if (index > 100 || index < 0) {
 		buf.chooseType = -1;
-		lo3_error("setting Type: Wrong Index, you input any out of bounce!", index);
+		lo3_error("setting Type: Wrong Index, you input any out of bounce!", "");
 		return -1;
 
 	}
 
 	if (type.chooseType > 3  || type.chooseType < 0) {
 		buf.chooseType = -1;
-		lo3_error("setting Type: Wrong datatype, what are you doing?", type);
+		lo3_error("setting Type: Wrong datatype, what are you doing?", "");
 		return -1;
 	}
 
