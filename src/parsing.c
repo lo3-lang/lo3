@@ -63,7 +63,12 @@ int pars_file(FILE *file) {
 		lo3_cmds cmds = (lo3_cmds)line[1];
 
 		// find the TYPES of arg
-		(void)sscanf(&line[3], " %s %s", arg1, arg2);
+
+		// could lead to wrong var names, but else it could eventually crash.
+		// Both are not that great.
+		// maybe there could be a check or lo3_warn() about wrong var name size.
+		
+		(void)sscanf(&line[3], " %63s %63s", arg1, arg2);
 
 		lo3_val a1 = pars_resv(arg1);
 		lo3_val a2 = pars_resv(arg2);
