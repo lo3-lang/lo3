@@ -113,6 +113,6 @@ int g_setType(int index, lo3_val type) {
 	return 0;
 }
 
-int g_getValue(int index) {
+lo3_val g_getValue(int index) {
 
 }
