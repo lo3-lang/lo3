@@ -6,6 +6,7 @@
 
 struct lo3_g {
 	lo3_val value[G_SIZE];
+	int isSet[G_SIZE];
 };
 
 lo3_g g;
@@ -23,6 +24,22 @@ lo3_val g_get(int index) {
 	}
 	return g.value[index];
 }
+
+// todo: add the way to check for isSet[index]
+// NOTE: it could be fixed already ....!
+//
+// ///// More Informations /////
+// there is a array called isSet, the purpose is to
+// check if any of the indexes are already set or not set at all.
+// This is needed because isSet() func, will use them to check if g.value[]
+// is already set or not!
+//
+// Why like that?
+// /////
+// Yes. Everyone who whould say that this second array is not needed
+// is right. It could be inpli as lo3_val *value[G_SIZE]
+// But now it whould break to much, so I decided to create a second array
+// and setting it the way it is.
 void g_set(int index, lo3_val value) {
 
 	char buf[64];
@@ -35,7 +52,7 @@ void g_set(int index, lo3_val value) {
 		return;
 	}
 
-	if (g.value[index] == NULL) {
+	if (g.isSet[index] == 0) {
 		// todo:
 		// inpliment that feature
 		//
@@ -48,34 +65,39 @@ void g_set(int index, lo3_val value) {
 		// the whole with switch cases !
 
 		g.value[index].chooseType = 0;//type, replace 0 with the coresponding type!
+		g.isSet[index] = 1;
 	}
 	g.value[index] = value;
 }
 
+// todo: add the way to check for isSet[index]
+//
+// ///// More Informations /////
+// there is a array called isSet, the purpose is to
+// check if any of the indexes are already set or not set at all.
+// This is needed because isSet() func, will use them to check if g.value[]
+// is already set or not!
+//
+// Why like that?
+// /////
+// Yes. Everyone who whould say that this second array is not needed
+// is right. It could be inpli as lo3_val *value[G_SIZE]
+// But now it whould break to much, so I decided to create a second array
+// and setting it the way it is.
 int g_isSet(int index) {
 
 	char buf[64];
 	snprintf(buf, sizeof(buf), "%d", index);
 
 	if (index > 100 || index < 0) {
-		lo3_error("Could not prove any <g>.\n"
+		lo3_error("OOB: <g>.\n"
 		          "Invalid index for g[]!",
 		          buf);
 		return -1;
 	}
 
-	if (!g.value[index].chooseType) {
-		if (g.value[index].value.num == 0 || g.value[index].value.num == ' ') {
-			return 0;
-		}
-
-	} else {
-		if (g.value[index].value.string == NULL) {
-			return 0;
-		}
-	}
-
-	return 1;
+	// 0: is not set / 1: is set
+	return g.isSet[index];
 }
 
 int g_getType(int index) {
