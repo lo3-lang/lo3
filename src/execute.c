@@ -263,8 +263,8 @@ void exec_in(lo3_val a1, lo3_val a2, char array[2]) {
 	}
 
 	if (!a2.chooseType) {
-		var_setNum(name, a2.value.num);
+		var_setNum(name, temp);
 	} else {
-		var_setString(name, a2.value.string);
+		var_setString(name, temp);
 	}
 }

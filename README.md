@@ -5,6 +5,8 @@
 ![Build](https://img.shields.io/github/actions/workflow/status/lo3-lang/lo3-core/release.yml)
 ![Language](https://img.shields.io/badge/written%20in-C-blue)
 ![Platform](https://img.shields.io/badge/platform-linux%20|%20windows-lightgrey)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/lo3-lang/lo3-core)
+
 
 > Currently the code is only available in linux, because in windows there is no getline ... 
 
