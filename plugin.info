@@ -1,5 +1,5 @@
 #general
-name=Core
+name="Core"
 description="Just the core lib. Main system for lo3"
 version=0.1
 api-version=0
