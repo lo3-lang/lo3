@@ -129,6 +129,16 @@ int g_setType(int index, lo3_val type) {
 	return 0;
 }
 
+// todo: inpliment g_getValue
+// NOTE: WIP — not implemented yet!
+//
+// ///// More Informations /////
+// This function should return the lo3_val stored at g.value[index].
+// For now it returns a placeholder (chooseType = -1) to avoid
+// undefined behavior from an empty function body.
+// /////
 lo3_val g_getValue(int index) {
-
+	lo3_val placeholder;
+	placeholder.chooseType = -1;
+	return placeholder;
 }
