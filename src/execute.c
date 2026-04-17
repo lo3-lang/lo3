@@ -202,6 +202,11 @@ void exec_div(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
+	if (a2.value.num == 0) {
+		lo3_error("Division by zero", name);
+		return;
+	}
+
 	var_setNum(name, var_getNum(oldVar) / a2.value.num);
 }
 
