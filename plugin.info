@@ -1,9 +1,9 @@
 #general
 name="core"
 description="Just the core lib. Main system for lo3"
-version=0.1
+plugin-version=0.1
 api-version=0
-plugin-info-version=0.2
+plugin.info-version=0.2
 author="seesee010"
 License="GPL-2.0"
 
