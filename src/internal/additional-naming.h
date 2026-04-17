@@ -14,6 +14,6 @@
 
 #else // linux
 #include <unistd.h>
-#define ASLEEP(ms) slee((ms) * 1000) // mic sec -> ms
+#define ASLEEP(ms) usleep((ms) * 1000) // mic sec -> ms
 
 #endif
