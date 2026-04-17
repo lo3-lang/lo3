@@ -142,7 +142,7 @@ void exec_sub(lo3_val a1, lo3_val a2, char array[2]) {
 	lo3_var *oldVar = var_get(name); // it must be right now, else var_find() was wrong before!
 
 	if (a2.chooseType) {
-		lo3_error("Arg1 requires TYPE String for +=", "");
+		lo3_error("Arg1 requires TYPE String for -=", "");
 		return;
 	}
 
@@ -170,7 +170,7 @@ void exec_mul(lo3_val a1, lo3_val a2, char array[2]) {
 	lo3_var *oldVar = var_get(name); // it must be right now, else var_find() was wrong before!
 
 	if (a2.chooseType) {
-		lo3_error("Arg1 requires TYPE String for +=", "");
+		lo3_error("Arg1 requires TYPE String for *=", "");
 		return;
 	}
 
@@ -198,7 +198,7 @@ void exec_div(lo3_val a1, lo3_val a2, char array[2]) {
 	lo3_var *oldVar = var_get(name); // it must be right now, else var_find() was wrong before!
 
 	if (a2.chooseType) {
-		lo3_error("Arg1 requires TYPE String for +=", "");
+		lo3_error("Arg1 requires TYPE String for /=", "");
 		return;
 	}
 
