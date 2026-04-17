@@ -8,7 +8,8 @@
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/lo3-lang/lo3-core)
 
 
-> Currently the code is only available in linux, because in windows there is no getline ... 
+> Currently the code is only available in linux, because in windows there is no getline ...
+> NOTE: Claude Code is not used for the core func of this repo. Only for bug fixes (human in a loop - version)
 
 ## What is this language about?
 lo3 is a token based interpreted programming language written in C.
