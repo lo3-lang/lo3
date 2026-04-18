@@ -3,6 +3,7 @@
 
 #include "./internal/bare-var.h"
 #include "./internal/core.h"
+#include "./internal/global.h"
 #include "./internal/specific-language.h"
 #include "internal/control-flow.h"
 
@@ -214,9 +215,10 @@ void exec_div(lo3_val a1, lo3_val a2, char array[2]) {
 // will cmp and jmp! #?
 void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 
-	char buf[64];
-	char *name;
+	char buf[64], buf2[64];
+	char *name, *name2;
 
+	// label
 	if (!a1.chooseType) {
 		(void)snprintf(buf, sizeof(buf), "%d", a1.value.num);
 		name = buf;
@@ -230,7 +232,16 @@ void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 		return;
 	}
 
-	cf_jumpToLabel(name);
+	// g[0] == name2
+	if (a2.chooseType != 0) {
+		lo3_error("Illegal type, here arg1 must be an integer value to compare against!",
+		          "");
+		return;
+	}
+
+	if (g_getNum(0) == a2.value.num) {
+		cf_jumpToLabel(name);
+	}
 	return;
 }
 

@@ -10,9 +10,8 @@ lo3_val g_get(int index);
 void g_set(int index, lo3_val value);
 
 int g_isSet(int index);
-
 int g_getType(int index);
-
+int g_getNum(int index); // risky
 int g_setType(int index, lo3_val type);
 
 lo3_val g_getValue(int index);

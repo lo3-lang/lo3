@@ -1,5 +1,7 @@
 #include "./internal/global.h"
 #include "./internal/core.h"
+#include <climits>
+#include <cstdint>
 #include <stdio.h>
 
 // 0: $100, chooseType = 0;
@@ -64,7 +66,7 @@ void g_set(int index, lo3_val value) {
 		// else Invalid
 		// the whole with switch cases !
 
-		g.value[index].chooseType = 0;//type, replace 0 with the coresponding type!
+		g.value[index].chooseType = 0; // type, replace 0 with the coresponding type!
 		g.isSet[index] = 1;
 	}
 	g.value[index] = value;
@@ -115,10 +117,9 @@ int g_setType(int index, lo3_val type) {
 		buf.chooseType = -1;
 		lo3_error("setting Type: Wrong Index, you input any out of bounce!", "");
 		return -1;
-
 	}
 
-	if (type.chooseType > 3  || type.chooseType < 0) {
+	if (type.chooseType > 3 || type.chooseType < 0) {
 		buf.chooseType = -1;
 		lo3_error("setting Type: Wrong datatype, what are you doing?", "");
 		return -1;
@@ -141,4 +142,32 @@ lo3_val g_getValue(int index) {
 	lo3_val placeholder;
 	placeholder.chooseType = -1;
 	return placeholder;
+}
+
+// NOTE: this func should not be used by any seriously codebase, this func
+// can selfish not fully cover if it is OOB or if the value is even an integer.
+// PLEASE:
+// Consider using the func g_getValue() even if you then must check which type it is by yourself!
+// if you really want to use this func, use the MACRO called G_GETV(index), this will be replaced by
+// g_getNum(...) or g_getString(...)
+int g_getNum(int index) {
+	if (index >= G_SIZE || index < 0) {
+		return -1; // could also eventually be data!!!
+	}
+
+	return g.value[index].value.num;
+}
+
+// NOTE: this func should not be used by any seriously codebase, this func
+// can selfish not fully cover if it is OOB or if the value is even a String.
+// PLEASE:
+// Consider using the func g_getValue() even if you then must check which type it is by yourself!
+// if you really want to use this func, use the MACRO called G_GETV(index), this will be replaced by
+// g_getNum(...) or g_getString(...) !!!
+char *g_getString(int index) {
+	if (index >= G_SIZE || index < 0) {
+		return "_error"; // could also eventually be data!!!
+	}
+
+	return g.value[index].value.string;
 }
