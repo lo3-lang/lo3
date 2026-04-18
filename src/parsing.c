@@ -181,6 +181,9 @@ lo3_val pars_resv(char type[64]) {
 	lo3_val result;
 	result.type = type[0];
 
+	int value;
+	lo3_var *var;
+
 	switch (result.type) {
 
 	// find the corresponding type
@@ -216,7 +219,7 @@ lo3_val pars_resv(char type[64]) {
 	case TYPE_var:
 
 		// resolve var
-		lo3_var *var = var_get(&type[1]);
+		var = var_get(&type[1]);
 
 		if (var == NULL) {
 			lo3_error("Could not resolve var, because it was invalid! Or empty.", "");

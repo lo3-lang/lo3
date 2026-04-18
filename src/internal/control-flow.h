@@ -6,6 +6,7 @@
 #define ARRAY_SIZE 254
 
 extern char rush;
+extern char *rush_target;
 extern char isWarped;
 
 typedef struct lo3_label {

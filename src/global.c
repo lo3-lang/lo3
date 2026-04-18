@@ -1,7 +1,7 @@
 #include "./internal/global.h"
 #include "./internal/core.h"
-#include <climits>
-#include <cstdint>
+#include <limits.h>
+#include <stdint.h>
 #include <stdio.h>
 
 // 0: $100, chooseType = 0;

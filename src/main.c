@@ -5,6 +5,8 @@
 #include "internal/bare-var.h"
 #include <stdio.h>
 
+FILE *openFile = NULL;
+
 int main(int argc, char *argv[]) {
 
 	if (argc < 2) {
@@ -18,7 +20,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	FILE *openFile = file;
+	openFile = file;
 
 	var_init();
 	pars_file(file);
