@@ -199,11 +199,12 @@ lo3_val pars_resv(char type[64]) {
 		// not allowed: "*A"
 
 		// *100 -> _Hello
-		int value = g_get(atoi(&type[1]));
+		int idx = atoi(&type[1]);
+		lo3_val value = g_get(atoi(&type[1]));
 
-		result.type = g_getType(value) ? TYPE_string : TYPE_num;
-		result.value = g_getValue(value);
-		result.chooseType = g_getType(value) ? 3 : 0;
+		result.type = value.chooseType ? TYPE_string : TYPE_num;
+		result.value = value.value;
+		result.chooseType = value.chooseType ? 3 : 0;
 		break;
 
 	case TYPE_string:
