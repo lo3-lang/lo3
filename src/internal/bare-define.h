@@ -10,15 +10,15 @@ typedef enum {
 } lo3_types;
 
 typedef union {
-	int num;
-	char *string;
-	double numD;
+	 signed int num;
+	unsigned char *string;
+	signed double numD;
 } lo3_value;
 
 typedef struct {
 
 	lo3_types type;
-	int chooseType;
+	signed int chooseType;
 
 	lo3_value value;
 

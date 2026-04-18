@@ -18,7 +18,7 @@ lo3_val g_get(int index) {
 	char buf[64];
 	snprintf(buf, sizeof(buf), "%d", index);
 
-	if (index > 100 || index < 0) {
+	if (index > G_SIZE - 1 || index < 0) {
 		lo3_error("Could not return any g[index],\n"
 		          "This is Out of bounce!",
 		          buf);
@@ -47,7 +47,7 @@ void g_set(int index, lo3_val value) {
 	char buf[64];
 	snprintf(buf, sizeof(buf), "%d", index);
 
-	if (index > 100 || index < 0) {
+	if (index > G_SIZE - 1 || index < 0) {
 		lo3_error("Could not set any <g>.\n"
 		          "Invalid index for g[]!",
 		          buf);
@@ -91,7 +91,7 @@ int g_isSet(int index) {
 	char buf[64];
 	snprintf(buf, sizeof(buf), "%d", index);
 
-	if (index > 100 || index < 0) {
+	if (index > G_SIZE - 1 || index < 0) {
 		lo3_error("OOB: <g>.\n"
 		          "Invalid index for g[]!",
 		          buf);
@@ -113,7 +113,7 @@ int g_setType(int index, lo3_val type) {
 
 	lo3_val buf;
 
-	if (index > 100 || index < 0) {
+	if (index > G_SIZE - 1 || index < 0) {
 		buf.chooseType = -1;
 		lo3_error("setting Type: Wrong Index, you input any out of bounce!", "");
 		return -1;

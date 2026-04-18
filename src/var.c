@@ -7,7 +7,7 @@
 // dev
 struct lo3_var {
 
-	char name[64];
+	unsigned char name[64];
 	int type; // 0 = num, 3 = string
 
 	lo3_value value;
@@ -15,7 +15,7 @@ struct lo3_var {
 
 struct lo3_varList {
 
-	int index;
+	signed int index;
 	lo3_var *array[256];
 };
 //
@@ -89,7 +89,7 @@ lo3_var *var_get(const char *name) {
  */
 void var_free(const char *name) {
 
-	int returnVal = var_find(name);
+	signed int returnVal = var_find(name);
 
 	if (returnVal == -1) {
 		lo3_error(
@@ -121,7 +121,7 @@ void var_freeAll(void) {
 
 void var_setNum(const char *name, int num) {
 
-	int i = var_find(name);
+	signed int i = var_find(name);
 
 	if (i == -1) {
 		lo3_error("<var> not found, please check if this is the right var name", name);
@@ -137,7 +137,7 @@ void var_setNum(const char *name, int num) {
 }
 void var_setString(const char *name, char *string) {
 
-	int i = var_find(name);
+	signed int i = var_find(name);
 
 	if (i == -1) {
 		lo3_error("<var> not found, please check if this is the right var name", name);

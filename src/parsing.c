@@ -36,10 +36,10 @@ int pars_isFileValid(char *name, FILE **file) {
 
 int pars_file(FILE *file) {
 
-	char *line = NULL;
+	signed char *line = NULL;
 	size_t len = 0;
-	char arg1[64] = {0}, arg2[64] = {0};
-	char buff_types[2];
+	signed char arg1[64] = {0}, arg2[64] = {0};
+	unsigned char buff_types[2];
 
 	int pos0 = ftell(file);
 
@@ -99,7 +99,7 @@ parsing:
 		// ///// More Information: /////
 		// here the program should parse the prefix, for example: '$' away.
 		// So the Exec dont have to do that.
-		int returnVal = pars_dispatch(cmds, a1, a2, buff_types);
+		signed int returnVal = pars_dispatch(cmds, a1, a2, buff_types);
 
 		if (returnVal != -1) {
 			free(line);
@@ -137,7 +137,7 @@ int pars_getToKnowType(char buffer[2], lo3_val val1, lo3_val val2) {
 	 * Both sides have that syntax.
 	 */
 
-	char num[2];
+	unsigned char num[2];
 
 	lo3_types possibleType[] = {val1.type, val2.type};
 	lo3_val values[] = {val1, val2};
@@ -202,11 +202,12 @@ lo3_val pars_resv(char type[64]) {
 		// not allowed: "*A"
 
 		// *100 -> _Hello
-		value = atoi(&type[1]);
+		int idx = atoi(&type[1]);
+		lo3_val value = g_get(atoi(&type[1]));
 
-		result.type = g_getType(value) ? TYPE_string : TYPE_num;
-		result.value = g_getValue(value).value;
-		result.chooseType = g_getType(value) ? 3 : 0;
+		result.type = value.chooseType ? TYPE_string : TYPE_num;
+		result.value = value.value;
+		result.chooseType = value.chooseType ? 3 : 0;
 		break;
 
 	case TYPE_string:
