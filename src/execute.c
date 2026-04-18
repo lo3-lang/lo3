@@ -226,8 +226,6 @@ void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 		name = a1.value.string;
 	}
 
-	rush = TRUE;
-
 	if (cf_findLabel(name) == -1) {
 		return;
 	}
@@ -240,6 +238,7 @@ void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 	}
 
 	if (g_getNum(0) == a2.value.num) {
+		rush = TRUE;
 		cf_jumpToLabel(name);
 	}
 	return;
