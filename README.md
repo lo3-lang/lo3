@@ -31,7 +31,7 @@ This will start the interpreter and run your code.
 | Feature | Status |
 | :--- | :--- |
 | ALU Operations | ✅ |
-| Control Flow | ❌ |
+| Control Flow | ✅ |
 | Func Calling | ❌ |
 | Input/STDIN | ✅ |
 | Output/STDOUT | ✅ |
