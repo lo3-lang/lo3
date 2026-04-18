@@ -3,11 +3,14 @@
 //
 // You can find todos by reading the "todo" blocks.
 // But please read the whole block not only the single todo line
+
+#include "./internal/bare-define.h"
 #include "./internal/bare-var.h"
 #include "./internal/core.h"
-#include "./internal/bare-define.h"
-#include "./internal/specific-language.h"
 #include "./internal/global.h"
+#include "./internal/specific-language.h"
+
+volatile char LO3_STARTING_LINE = '#';
 
 int currentLine = 0;
 
@@ -37,7 +40,7 @@ int pars_file(FILE *file) {
 	unsigned char buff_types[2];
 
 	// todo: make getline avaible on other os
-	// 
+	//
 	// ///// MORE INFORMATIONS /////
 	// getline is not a c standardized lib and therefore should be defined somewhere else.
 	// Ways to solve that problem:
@@ -48,7 +51,11 @@ int pars_file(FILE *file) {
 		currentLine++;
 		line[strcspn(line, "\n")] = '\0';
 
-		if (line[0] != '#') {
+		if (line[0] == '@') {
+			LO3_STARTING_LINE = line[1];
+		}
+
+		if (line[0] != LO3_STARTING_LINE) {
 			continue;
 		}
 
@@ -67,7 +74,7 @@ int pars_file(FILE *file) {
 		// could lead to wrong var names, but else it could eventually crash.
 		// Both are not that great.
 		// maybe there could be a check or lo3_warn() about wrong var name size.
-		
+
 		(void)sscanf(&line[3], " %63s %63s", arg1, arg2);
 
 		lo3_val a1 = pars_resv(arg1);
@@ -95,7 +102,7 @@ int pars_file(FILE *file) {
 
 		free(line);
 		line = NULL;
-		len  = 0;
+		len = 0;
 	}
 	return 0;
 }
@@ -171,7 +178,7 @@ lo3_val pars_resv(char type[64]) {
 		// 0 - 9 counts as values
 		//
 		// not allowed: "*A"
-		
+
 		// *100 -> _Hello
 		int value = g_get(atoi(&type[1]));
 
@@ -235,6 +242,20 @@ lo3_val pars_resv(char type[64]) {
 // Now array is very useless and not very helping. Now lo3_val has chooseType to choose its
 // type.
 int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
+
+	if (rush) {
+
+		switch (cmd) {
+		case CNT_label:
+			exec_label(a1, a2, array);
+			break;
+
+		default:
+			break;
+		}
+
+		return -1;
+	}
 
 	switch (cmd) {
 
