@@ -1,0 +1,3 @@
+[env]
+# C globals are not thread-safe; force single-threaded test execution.
+RUST_TEST_THREADS = "1"

@@ -1,0 +1,13 @@
+[package]
+name    = "lo3-unit-tests"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "lo3_tests"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+cc = "1"
