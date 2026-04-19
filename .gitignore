@@ -1,3 +1,8 @@
 build/*
 .cache/
 review.md
+bin/*
+build_pain/
+build_plain/
+build_test/
+.claude/

@@ -14,3 +14,6 @@ target_include_directories(lo3 PRIVATE include)
 if(UNIX)
     target_link_libraries(lo3 PRIVATE dl)
 endif()
+
+enable_testing()
+add_subdirectory(test)
