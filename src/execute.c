@@ -9,7 +9,7 @@
 
 void exec_new(lo3_val a1, lo3_val a2, char array[2]) {
 
-	singed char buf[64];
+	unsigned char buf[64];
 	unsigned char *name;
 
 	if (!a1.chooseType) {
@@ -42,7 +42,7 @@ void exec_new(lo3_val a1, lo3_val a2, char array[2]) {
 void exec_free(lo3_val a1, lo3_val a2, char array[2]) {
 
 	unsigned char buf[64];
-	unsinged char *name;
+	unsigned char *name;
 
 	if (!a1.chooseType) {
 		snprintf(buf, sizeof(buf), "%d", a1.value.num);
@@ -68,7 +68,7 @@ void exec_free(lo3_val a1, lo3_val a2, char array[2]) {
  */
 void exec_asn(lo3_val a1, lo3_val a2, char array[2]) {
 
-	unsinged char buf[64], *name;
+	unsigned char buf[64], *name;
 	unsigned char numNameBuf[64];
 
 	if (!a1.chooseType) {
@@ -292,7 +292,7 @@ void exec_in(lo3_val a1, lo3_val a2, char array[2]) {
 	unsigned char buf[64] = {0}; // privides buf not initing
 	unsigned char *res;
 
-	unsigned har numNameBuf[64];
+	unsigned char numNameBuf[64];
 	unsigned char *name;
 
 	res = fgets(buf, sizeof(buf), stdin);

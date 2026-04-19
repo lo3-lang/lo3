@@ -12,7 +12,7 @@ typedef enum {
 typedef union {
 	 signed int num;
 	unsigned char *string;
-	signed double numD;
+	double numD;
 } lo3_value;
 
 typedef struct {

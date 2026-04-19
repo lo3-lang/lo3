@@ -36,9 +36,9 @@ int pars_isFileValid(char *name, FILE **file) {
 
 int pars_file(FILE *file) {
 
-	signed char *line = NULL;
+	char *line = NULL;
 	size_t len = 0;
-	signed char arg1[64] = {0}, arg2[64] = {0};
+	char arg1[64] = {0}, arg2[64] = {0};
 	unsigned char buff_types[2];
 
 	int pos0 = ftell(file);

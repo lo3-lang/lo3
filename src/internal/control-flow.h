@@ -22,6 +22,7 @@ extern lo3_label cf;
 int cf_addLabel(const char *name, const int pos);
 int cf_jumpToLabel(const char *name);
 int cf_findLabel(const char *name);
+int cf_getPos(const char *name);
 
 void cf_setCursorPos(const int i);
 int cf_getCursorPos(void);

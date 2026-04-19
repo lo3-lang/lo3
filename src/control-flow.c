@@ -5,11 +5,12 @@
 lo3_label cf;
 char rush = FALSE;
 char isWarped = FALSE;
+char *rush_target = NULL;
 
 int cf_findLabel(const char *name) {
 
-	for (int i = 0; i < ARRAY_SIZE - 1; i++) {
-		if (!strcmp(name, cf.names[i])) {
+	for (int i = 0; i < cf.nextFreePos; i++) {
+		if (cf.names[i] && !strcmp(name, cf.names[i])) {
 			return i;
 		}
 	}
