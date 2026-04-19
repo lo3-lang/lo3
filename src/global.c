@@ -1,5 +1,6 @@
 #include "./internal/global.h"
 #include "./internal/core.h"
+#include "internal/specific-language.h"
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -170,4 +171,45 @@ char *g_getString(int index) {
 	}
 
 	return g.value[index].value.string;
+}
+
+// syntax:
+// @{index:[type][value],...}
+void g_fasterInit(char *line) {
+
+	char *ip = &line[2];
+	char buf[64];
+	int off;
+
+	for (int i = 0; *ip != '}' && *ip != '\0'; i++) {
+
+		// read line till ':'
+		int fields = sscanf(ip, "%d:%n", &i, &off);
+
+		if (fields == -1) {
+			return;
+		}
+
+		// ptr on the  new addr
+		ip += off;
+
+		fields = sscanf(ip, "%63[^,}]%n", buf, &off);
+
+		if (fields == -1) {
+			return;
+		}
+
+		ip += off;
+
+		// todo:
+		// this code should really use g_setValue(), but by now it is not avaible!
+		//
+		// ///// More Informations /////
+		// this func should use g_setValue() so global itself will carry about formating
+		// every tiny bit right. And this code wont use lo3_val value !!! After it
+		// exists this func is depricated and should be enhanced!, replaced by itself!
+		lo3_val value;
+		value = pars_resv(buf);
+		g_set(i, value);
+	}
 }
