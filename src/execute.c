@@ -323,3 +323,63 @@ void exec_in(lo3_val a1, lo3_val a2, char array[2]) {
 		var_setString(name, temp.value.string);
 	}
 }
+
+// compare num == num, if true -> g[0] = 1, else g[0] = 0;!!!
+void exec_cmp(lo3_val a1, lo3_val a2, char array[2]) {
+
+	if (a1.chooseType || a2.chooseType) {
+		lo3_error("You can not compare char*'s,\n"
+	    "Please use the coresponding std-func!, from {string.c}", "");
+		return;
+	}
+
+	lo3_val true, false;
+	true.value.num = TRUE;
+	false.value.num = FALSE;
+
+	if (a1.value.num == a2.value.num) {
+		g_set(0, true);
+		return;
+	}
+	g_set(0, false);
+}
+
+// compare num < num, if true -> g[0] = 1, else g[0] = 0;!!!
+void exec_small(lo3_val a1, lo3_val a2, char array[2]) {
+
+	if (a1.chooseType || a2.chooseType) {
+		lo3_error("You can not compare char*'s,\n"
+	    "Please use the coresponding std-func!, from {string.c}", "");
+		return;
+	}
+
+	lo3_val true, false;
+	true.value.num = TRUE;
+	false.value.num = FALSE;
+
+	if (a1.value.num < a2.value.num) {
+		g_set(0, true);
+		return;
+	}
+	g_set(0, false);
+}
+
+// compare num > num, if true -> g[0] = 1, else g[0] = 0;!!!
+void exec_big(lo3_val a1, lo3_val a2, char array[2]) {
+
+	if (a1.chooseType || a2.chooseType) {
+		lo3_error("You can not compare char*'s,\n"
+	    "Please use the coresponding std-func!, from {string.c}", "");
+		return;
+	}
+
+	lo3_val true, false;
+	true.value.num = TRUE;
+	false.value.num = FALSE;
+
+	if (a1.value.num > a2.value.num) {
+		g_set(0, true);
+		return;
+	}
+	g_set(0, false);
+}

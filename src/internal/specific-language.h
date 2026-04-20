@@ -23,6 +23,9 @@ typedef enum {
 	CNT_callS = 'C', // call extern lib (better func!, uses relative path)
 	CNT_label = 'l', // define new label
 	CNT_new = 'n',   // define new variable
+	CNT_cmp = '?',
+	CNT_small = '<',
+	CNT_big = '>',
 
 	// stream
 	STM_out = 'o', // shifts sth into stdout
@@ -55,3 +58,6 @@ void exec_label(lo3_val a1, lo3_val a2, char array[2]);
 void exec_out(lo3_val a1, lo3_val a2, char array[2]);
 void exec_in(lo3_val a1, lo3_val a2, char array[2]);
 void exec_free(lo3_val a1, lo3_val a2, char array[2]);
+void exec_cmp(lo3_val a1, lo3_val a2, char array[2]);
+void exec_small(lo3_val a1, lo3_val a2, char array[2]);
+void exec_big(lo3_val a1, lo3_val a2, char array[2]);
