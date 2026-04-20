@@ -1,0 +1,29 @@
+test/CMakeFiles/test_parsing.dir/unit/unity/unity.c.o: \
+  /home/node/.openclaw/workspace/lo3-core/test/unit/unity/unity.c \
+  /home/node/.openclaw/workspace/lo3-core/test/unit/unity/unity.h \
+  /home/node/.openclaw/workspace/lo3-core/test/unit/unity/unity_internals.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/setjmp.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/features.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/setjmp.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/compat/math.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/math.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/stddef.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stddef.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_header_macro.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_ptrdiff_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_size_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_wchar_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_null.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_max_align_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_offsetof.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/limits.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/limits.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/limits.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/stdnoreturn.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdnoreturn.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdio.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h

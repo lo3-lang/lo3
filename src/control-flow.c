@@ -28,9 +28,11 @@ int cf_addLabel(const char *name, const int pos) {
 	}
 
 	// is already known?
-	if (cf_findLabel(name) != -1) {
-		lo3_error("Label already known!", name);
-		return -1;
+	int existing = cf_findLabel(name);
+	if (existing != -1) {
+		// Update position instead of erroring - rush mode jumped back here
+		cf.pos[existing] = pos;
+		return 0;
 	}
 
 	cf.names[cf.nextFreePos] = name;

@@ -1,0 +1,28 @@
+CMakeFiles/lo3.dir/src/var.c.o: \
+  /home/node/.openclaw/workspace/lo3-core/src/var.c \
+  /home/node/.openclaw/workspace/lo3-core/src/./internal/bare-var.h \
+  /home/node/.openclaw/workspace/lo3-core/src/./internal/specific-language.h \
+  /home/node/.openclaw/workspace/lo3-core/src/./internal/bare-define.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/compat/string.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/string.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/features.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/strings.h \
+  /home/node/.openclaw/workspace/lo3-core/src/./internal/core.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdio.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/stddef.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stddef.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_header_macro.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_ptrdiff_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_size_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_wchar_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_null.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_max_align_t.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/__stddef_offsetof.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/lib/clang/23/include/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdlib.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/stdlib.h \
+  /home/node/.openclaw/workspace/emsdk/upstream/emscripten/cache/sysroot/include/alloca.h
