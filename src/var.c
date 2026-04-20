@@ -149,7 +149,7 @@ void var_setString(const char *name, char *string) {
 		return;
 	}
 
-	list->array[i]->value.string = string;
+	list->array[i]->value.string = strdup(string);
 }
 
 int var_getNum(const lo3_var *var) {
