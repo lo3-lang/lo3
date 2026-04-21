@@ -68,7 +68,7 @@ parsing:
 				// @{1:$10,10:_Hello}
 				// index | type | word
 
-				g_fasterInit(line[]);
+				g_fasterInit(line);
 			}
 		}
 

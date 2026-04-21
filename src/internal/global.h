@@ -15,3 +15,5 @@ int g_getNum(int index); // risky
 int g_setType(int index, lo3_val type);
 
 lo3_val g_getValue(int index);
+
+void g_fasterInit(char *line);
