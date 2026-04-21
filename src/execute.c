@@ -264,12 +264,16 @@ void exec_label(lo3_val a1, lo3_val a2, char array[2]) {
 		name = a1.value.string;
 	}
 
-	if (cf_findLabel(name) != -1) {
+	if (!rush && cf_findLabel(name) != -1) {
 		lo3_error("Label name already exists!", name);
 		return;
 	}
 
-	cf_addLabel(name, currentLine);
+	if (rush) {
+		rush = strcmp(&name, &rush_target) ? false : true;
+	} else {
+		cf_addLabel(name, currentLine);
+	}
 }
 
 void exec_out(lo3_val a1, lo3_val a2, char array[2]) {
