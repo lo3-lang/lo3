@@ -81,6 +81,7 @@ extern "C" {
     pub fn g_getType(index: i32) -> i32;
     pub fn g_setType(index: i32, r#type: lo3_val) -> i32;
     pub fn g_getValue(index: i32) -> lo3_val;
+    pub fn g_fasterInit(line: *mut i8);
 
     // control-flow.c
     pub fn cf_findLabel(name: *const i8) -> i32;
