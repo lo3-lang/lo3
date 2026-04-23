@@ -11,6 +11,7 @@
 #include "./internal/global.h"
 #include "./internal/specific-language.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 volatile char LO3_STARTING_LINE = '#';
 
@@ -57,8 +58,18 @@ parsing:
 		currentLine++;
 		line[strcspn(line, "\n")] = '\0';
 
+		// syntax sugar
 		if (line[0] == '@') {
-			LO3_STARTING_LINE = line[1];
+
+			if (line[1] == '.') {
+				LO3_STARTING_LINE = line[2];
+
+			} else if (line[1] == '{') {
+				// @{1:$10,10:_Hello}
+				// index | type | word
+
+				g_fasterInit(line);
+			}
 		}
 
 		if (line[0] != LO3_STARTING_LINE) {

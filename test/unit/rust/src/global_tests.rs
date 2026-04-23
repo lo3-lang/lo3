@@ -96,3 +96,65 @@ fn getvalue_returns_placeholder_choosetype_minus1() {
     let v = unsafe { g_getValue(57) };
     assert_eq!(-1, v.chooseType);
 }
+
+// ── g_fasterInit ─────────────────────────────────────────────────────────────
+// Indices 60-69 are reserved for these tests.
+
+#[test]
+fn faster_init_single_num_sets_value() {
+    // @{60:$42} — numeric entry must store 42 at index 60
+    unsafe {
+        let mut line = b"@{60:$42}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+        assert_eq!(42, g_getNum(60));
+    }
+}
+
+#[test]
+fn faster_init_single_num_marks_isset() {
+    // g_isSet must flip to 1 after g_fasterInit writes the entry
+    unsafe {
+        let mut line = b"@{61:$7}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+        assert_eq!(1, g_isSet(61));
+    }
+}
+
+#[test]
+fn faster_init_string_entry_sets_string_type() {
+    // @{62:_Hello} — string entry must record chooseType=3
+    unsafe {
+        let mut line = b"@{62:_Hello}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+        assert_eq!(3, g_getType(62));
+    }
+}
+
+#[test]
+fn faster_init_empty_braces_no_crash() {
+    // @{} — nothing to initialise, must not crash or panic
+    unsafe {
+        let mut line = b"@{}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+    }
+}
+
+#[test]
+fn faster_init_negative_num() {
+    // @{63:$-5} — atoi must handle the minus sign correctly
+    unsafe {
+        let mut line = b"@{63:$-5}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+        assert_eq!(-5, g_getNum(63));
+    }
+}
+
+#[test]
+fn faster_init_last_valid_index_no_crash() {
+    // index 99 is the last in-bounds slot (G_SIZE = 100)
+    unsafe {
+        let mut line = b"@{99:$1}\0".to_vec();
+        g_fasterInit(line.as_mut_ptr() as *mut i8);
+        assert_eq!(1, g_getNum(99));
+    }
+}
