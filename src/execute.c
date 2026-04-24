@@ -240,7 +240,8 @@ void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 
 	if (g_getNum(0) == a2.value.num) {
 		rush = TRUE;
-		rush_target = name;
+
+		(void)strncpy(rush_target, name, sizeof(rush_target) - 1);
 		cf_jumpToLabel(name);
 	}
 	return;
@@ -269,13 +270,13 @@ void exec_label(lo3_val a1, lo3_val a2, char array[2]) {
 	if (cf_findLabel(name) != -1) {
 
 		if (rush && !strcmp(rush_target, name)) {
-			rush_target = "";
+			rush = FALSE;
 			return;
 		}
 		return;
 	}
 
-	cf_addLabel(name, currentLine);
+	cf_addLabel(name, lastLineOffset);
 }
 
 void exec_out(lo3_val a1, lo3_val a2, char array[2]) {

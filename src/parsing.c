@@ -15,6 +15,7 @@
 volatile char LO3_STARTING_LINE = '#';
 
 int currentLine = 0;
+int lastLineOffset = 0;
 
 int pars_isFileValid(char *name, FILE **file) {
 
@@ -52,7 +53,7 @@ int pars_file(FILE *file) {
 	// - use the preprocessor funcs, like ifdef check for linux and win etc
 
 parsing:
-	while (getline(&line, &len, file) != -1) {
+	while (lastLineOffset = ftell(file), getline(&line, &len, file) != -1) {
 
 		currentLine++;
 		line[strcspn(line, "\n")] = '\0';

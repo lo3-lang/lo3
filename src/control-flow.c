@@ -1,11 +1,12 @@
 #include "./internal/control-flow.h"
 #include "./internal/core.h"
 #include "./internal/specific-language.h"
+#include <string.h>
 
 lo3_label cf;
 char rush = FALSE;
 char isWarped = FALSE;
-char *rush_target = NULL;
+char rush_target[256];
 
 int cf_findLabel(const char *name) {
 
@@ -29,7 +30,7 @@ int cf_addLabel(const char *name, const int pos) {
 		return -1;
 	}
 
-	cf.names[cf.nextFreePos] = name;
+	cf.names[cf.nextFreePos] = strdup(name);
 	cf.pos[cf.nextFreePos] = pos;
 	cf.nextFreePos++;
 	return 0;
@@ -65,6 +66,6 @@ int cf_jumpToLabel(const char *name) {
 		return -1;
 	}
 
-	cf_setCursorPos(index);
+	cf_setCursorPos(cf.pos[index]);
 	return 0;
 }

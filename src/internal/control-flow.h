@@ -6,8 +6,9 @@
 #define ARRAY_SIZE 254
 
 extern char rush;
-extern char *rush_target;
+extern char rush_target[256];
 extern char isWarped;
+extern int lastLineOffset;
 
 typedef struct lo3_label {
 	char *names[ARRAY_SIZE];
