@@ -6,6 +6,7 @@
 #include "./internal/global.h"
 #include "./internal/specific-language.h"
 #include "internal/control-flow.h"
+#include <string.h>
 
 void exec_new(lo3_val a1, lo3_val a2, char array[2]) {
 
@@ -239,6 +240,8 @@ void exec_jmp(lo3_val a1, lo3_val a2, char array[2]) {
 
 	if (g_getNum(0) == a2.value.num) {
 		rush = TRUE;
+
+		(void)strncpy(rush_target, name, sizeof(rush_target) - 1);
 		cf_jumpToLabel(name);
 	}
 	return;
@@ -264,16 +267,16 @@ void exec_label(lo3_val a1, lo3_val a2, char array[2]) {
 		name = a1.value.string;
 	}
 
-	if (!rush && cf_findLabel(name) != -1) {
-		lo3_error("Label name already exists!", name);
+	if (cf_findLabel(name) != -1) {
+
+		if (rush && !strcmp(rush_target, name)) {
+			rush = FALSE;
+			return;
+		}
 		return;
 	}
 
-	if (rush) {
-		rush = strcmp(&name, &rush_target) ? false : true;
-	} else {
-		cf_addLabel(name, currentLine);
-	}
+	cf_addLabel(name, lastLineOffset);
 }
 
 void exec_out(lo3_val a1, lo3_val a2, char array[2]) {

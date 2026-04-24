@@ -1,9 +1,9 @@
 build/*
 .cache/
 review.md
-bin/*
-build_pain/
 build_plain/
 build_test/
-.claude/
-test/unit/rust/target/
+CMakeFiles/
+Makefile
+CMakeCache.txt
+cmake_install.cmake

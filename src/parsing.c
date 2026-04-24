@@ -16,6 +16,7 @@
 volatile char LO3_STARTING_LINE = '#';
 
 int currentLine = 0;
+int lastLineOffset = 0;
 
 int pars_isFileValid(char *name, FILE **file) {
 
@@ -53,7 +54,7 @@ int pars_file(FILE *file) {
 	// - use the preprocessor funcs, like ifdef check for linux and win etc
 
 parsing:
-	while (getline(&line, &len, file) != -1) {
+	while (lastLineOffset = ftell(file), getline(&line, &len, file) != -1) {
 
 		currentLine++;
 		line[strcspn(line, "\n")] = '\0';
@@ -357,12 +358,9 @@ int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 		break;
 
 	case RET_good:
-
-		lo3_warn("Now it will stop the interpreter.\nEXITCODE: 0", "");
 		return 0;
 
 	case RET_bad:
-		lo3_warn("Now it will stop the interpreter\nEXITCODE: 1", "");
 		return 1;
 
 	case CNT_cmp:
