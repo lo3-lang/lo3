@@ -1,3 +1,7 @@
 build/*
 .cache/
 review.md
+build_plain/
+build_test/
+CMakeFiles/
+Makefile

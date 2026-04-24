@@ -346,12 +346,9 @@ int pars_dispatch(lo3_cmds cmd, lo3_val a1, lo3_val a2, char array[2]) {
 		break;
 
 	case RET_good:
-
-		lo3_warn("Now it will stop the interpreter.\nEXITCODE: 0", "");
 		return 0;
 
 	case RET_bad:
-		lo3_warn("Now it will stop the interpreter\nEXITCODE: 1", "");
 		return 1;
 
 	default:
