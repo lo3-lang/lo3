@@ -1,7 +1,6 @@
 #include "./internal/core.h"
 #ifdef _WIN32
 
-typedef long long ssize_t;
 ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream) {
 
 	if (lineptr == NULL || n == NULL || stream == NULL) {

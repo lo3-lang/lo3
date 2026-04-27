@@ -15,6 +15,11 @@ int pars_file(FILE *file);
 #define CLR_RESET "\033[0m"
 #define CLR_BOLD "\033[1m"
 
+#if defined(_MSC_VER)
+  typedef long ssize_t;
+
+#endif
+
 #ifdef _WIN32
 ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 
@@ -24,11 +29,6 @@ ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 #elif __linux__
 #define GETLINE(line, len, file) \
 	(getline((line), (len), (file)) != -1)
-
-#endif
-
-#if defined(_MSC_VER)
-  typedef long ssize_t;
 
 #endif
 
