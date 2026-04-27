@@ -18,7 +18,7 @@ int pars_file(FILE *file);
 #ifdef _WIN32
 int lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 #define GETLINE(line, len, file) \
-	(lo3_getLine(&(line), &(len), (file)) != 1)
+	(lo3_getLine(&(line), &(len), (file)) != -1)
 
 #elif __linux__
 #define GETLINE(line, len, file) \
