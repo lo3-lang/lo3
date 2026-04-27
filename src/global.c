@@ -28,7 +28,7 @@ lo3_val g_get(int index) {
 	return g.value[index];
 }
 
-//  add the way to check for isSet[index]
+// todo: add the way to check for isSet[index]
 // NOTE: it could be fixed already ....!
 //
 // ///// More Informations /////
