@@ -27,6 +27,11 @@ ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 
 #endif
 
+#if defined(_MSC_VER)
+  typedef long ssize_t;
+
+#endif
+
 void lo3_warn(const char *msg, const char *context);
 void lo3_error(const char *msg, const char *context);
 
