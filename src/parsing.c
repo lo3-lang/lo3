@@ -12,8 +12,6 @@
 #include "./internal/specific-language.h"
 #include <errno.h>
 #include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 volatile char LO3_STARTING_LINE = '#';
 
@@ -129,6 +127,7 @@ parsing:
 lo3_val pars_resv(char type[64]) {
 	lo3_val result;
 	result.type = type[0];
+	char *end;
 
 	int value;
 	lo3_var *var;
@@ -136,8 +135,7 @@ lo3_val pars_resv(char type[64]) {
 	switch (result.type) {
 
 	// find the corresponding type
-	case TYPE_num: {
-		char *end;
+	case TYPE_num:
 		errno = 0;
 
 		long val = strtol(&type[1], &end, 10);
@@ -150,9 +148,8 @@ lo3_val pars_resv(char type[64]) {
 		result.value.num = (int)val;
 		result.chooseType = 0;
 		break;
-	}
 
-	case TYPE_array: {
+	case TYPE_array:
 
 		// logic:
 		// *X, lookup X, resolve the value as long as it is a number,
@@ -161,7 +158,6 @@ lo3_val pars_resv(char type[64]) {
 		// not allowed: "*A"
 
 		// *100 -> _Hello
-		char *end;
 		errno = 0;
 
 		long idx = strtol(&type[1], &end, 10);
@@ -175,7 +171,6 @@ lo3_val pars_resv(char type[64]) {
 		result.value = value.value;
 		result.chooseType = value.chooseType ? 3 : 0;
 		break;
-	}
 
 	case TYPE_string:
 
