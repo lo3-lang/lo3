@@ -55,22 +55,8 @@ void g_set(int index, lo3_val value) {
 		return;
 	}
 
-	if (g.isSet[index] == 0) {
-		// todo:
-		// inpliment that feature
-		//
-		// ///// More Informations /////
-		// Look at the first char of value,
-		// if [0] is $ -> type 0
-		// if [0] is _ -> type type 3
-		// if [0] is / -> type 2
-		// else Invalid
-		// the whole with switch cases !
-
-		g.value[index].chooseType = 0; // type, replace 0 with the coresponding type!
-		g.isSet[index] = 1;
-	}
 	g.value[index] = value;
+	g.isSet[index] = 1;
 }
 
 // todo: add the way to check for isSet[index]
