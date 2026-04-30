@@ -25,6 +25,10 @@ lo3_varList *list = NULL;
 void var_init(void) {
 
 	list = malloc(sizeof(lo3_varList));
+	if (list == NULL) {
+		lo3_error("List for creating an var could not be created!", "");
+		return;
+	}
 	list->index = 0;
 }
 
