@@ -56,7 +56,8 @@ void var_create(const char *name, int type) {
 	lo3_var *var = malloc(sizeof(lo3_var));
 	(void)memset(var, 0, sizeof(lo3_var)); // so var_free works correctly
 
-	(void)strncpy(var->name, name, 64);
+	(void)strncpy(var->name, name, 63);
+	var->name[63] = '\0';
 	var->type = type;
 
 	// save it
