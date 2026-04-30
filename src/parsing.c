@@ -97,12 +97,6 @@ parsing:
 		lo3_val a1 = pars_resv(arg1);
 		lo3_val a2 = pars_resv(arg2);
 
-		// todo:
-		// parse that prefix away.
-		//
-		// ///// More Information: /////
-		// here the program should parse the prefix, for example: '$' away.
-		// So the Exec dont have to do that.
 		signed int returnVal = pars_dispatch(cmds, a1, a2);
 
 		if (returnVal != -1) {
