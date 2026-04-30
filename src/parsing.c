@@ -201,12 +201,14 @@ lo3_val pars_resv(char type[64]) {
 	switch (result.type) {
 
 	// find the corresponding type
-	case TYPE_num: {
+	case TYPE_num:
+	{
 		char *end;
 		errno = 0;
+
 		long val = strtol(&type[1], &end, 10);
 		if (errno != 0 || end == &type[1] || val > INT_MAX || val < INT_MIN) {
-			lo3_error("Invalid integer literal", type);
+			lo3_error("<num> is typeof integer!\nBut this value is not!", type);
 			result.value.num = 0;
 			result.chooseType = 0;
 			break;
@@ -216,7 +218,8 @@ lo3_val pars_resv(char type[64]) {
 		break;
 	}
 
-	case TYPE_array: {
+	case TYPE_array:
+	{
 
 		// logic:
 		// *X, lookup X, resolve the value as long as it is a number,
@@ -227,9 +230,10 @@ lo3_val pars_resv(char type[64]) {
 		// *100 -> _Hello
 		char *end;
 		errno = 0;
+
 		long idx = strtol(&type[1], &end, 10);
 		if (errno != 0 || end == &type[1] || idx < 0 || idx > INT_MAX) {
-			lo3_error("Invalid array index", type);
+			lo3_error("Invalid g[] index", type);
 			break;
 		}
 		lo3_val value = g_get((int)idx);
