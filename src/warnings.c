@@ -34,3 +34,20 @@ void lo3_error(const char *msg, const char *context) {
 		(void)fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
 	}
 }
+
+void lo3_printf(const char *fmt, ...) {
+
+	if (fmt == NULL || fmt[0] == '\0') {
+		lo3_error("lo3_printf called with empty format!", "");
+		return;
+	}
+
+	va_list args;
+	va_start(args, fmt);
+	int ret = vfprintf(stdout, fmt, args);
+	va_end(args);
+
+	if (ret < 0) {
+		lo3_error("Failed to write output!", "");
+	}
+}
