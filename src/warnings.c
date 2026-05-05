@@ -31,20 +31,3 @@ void lo3_error(const char *msg, const char *context) {
 		              CLR_BOLD CLR_RED "[ERROR]: %s " CLR_RESET "(?: '%s', line: %d)\n",
 		              msg, context, currentLine);
 	} else {
-		(void)fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
-	}
-}
-
-void lo3_printf(const char *prefix, const char *value) {
-
-	if (prefix == NULL || prefix[0] == '\0') {
-		lo3_error("lo3_printf called with empty prefix!", "");
-		return;
-	}
-
-	int ret = fprintf(stdout, "%s%s\n", prefix, value != NULL ? value : "");
-
-	if (ret < 0) {
-		lo3_error("Failed to write output!", "");
-	}
-}
