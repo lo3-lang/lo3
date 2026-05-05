@@ -1,0 +1,28 @@
+name: Compile Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        id: build
+        run: |
+          cmake -B build
+          cmake --build build
+        continue-on-error: true
+
+      - name: Report compilation status
+        run: |
+          if [ "${{ steps.build.outcome }}" = "success" ]; then
+            echo "## ✅ Compilation succeeded" >> $GITHUB_STEP_SUMMARY
+            echo "The source code compiled successfully." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ⚠️ Compilation failed" >> $GITHUB_STEP_SUMMARY
+            echo "The source code **failed to compile**. This does not block merging, but the code should be fixed before release." >> $GITHUB_STEP_SUMMARY
+          fi
