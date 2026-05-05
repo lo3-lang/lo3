@@ -35,17 +35,14 @@ void lo3_error(const char *msg, const char *context) {
 	}
 }
 
-void lo3_printf(const char *fmt, ...) {
+void lo3_printf(const char *prefix, const char *value) {
 
-	if (fmt == NULL || fmt[0] == '\0') {
-		lo3_error("lo3_printf called with empty format!", "");
+	if (prefix == NULL || prefix[0] == '\0') {
+		lo3_error("lo3_printf called with empty prefix!", "");
 		return;
 	}
 
-	va_list args;
-	va_start(args, fmt);
-	int ret = vfprintf(stdout, fmt, args);
-	va_end(args);
+	int ret = fprintf(stdout, "%s%s\n", prefix, value != NULL ? value : "");
 
 	if (ret < 0) {
 		lo3_error("Failed to write output!", "");

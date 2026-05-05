@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,7 +34,7 @@ ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 
 void lo3_warn(const char *msg, const char *context);
 void lo3_error(const char *msg, const char *context);
-void lo3_printf(const char *fmt, ...);
+void lo3_printf(const char *prefix, const char *value);
 
 ///// from parsing.c /////
 extern int currentLine;
