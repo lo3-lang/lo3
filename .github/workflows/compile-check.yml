@@ -15,14 +15,14 @@ jobs:
         run: |
           cmake -B build
           cmake --build build
-        continue-on-error: true
 
       - name: Report compilation status
+        if: always()
         run: |
           if [ "${{ steps.build.outcome }}" = "success" ]; then
             echo "## ✅ Compilation succeeded" >> $GITHUB_STEP_SUMMARY
             echo "The source code compiled successfully." >> $GITHUB_STEP_SUMMARY
           else
-            echo "## ⚠️ Compilation failed" >> $GITHUB_STEP_SUMMARY
+            echo "## ❌ Compilation failed" >> $GITHUB_STEP_SUMMARY
             echo "The source code **failed to compile**. This does not block merging, but the code should be fixed before release." >> $GITHUB_STEP_SUMMARY
           fi
