@@ -39,7 +39,7 @@ int cli_parse(int argc, char *argv[], lo3_args *args) {
 
         } else if (strcmp(argv[i], "--cpp") == 0) {
             args->use_cpp = 1;
-            if (i + 1 < argc && argv[i + 1][0] != '-') {
+            if (i + 1 < argc) {
                 args->input_file = argv[++i];
             } else {
                 lo3_error("--cpp requires a filename", "");
@@ -47,7 +47,7 @@ int cli_parse(int argc, char *argv[], lo3_args *args) {
             }
 
         } else if (strcmp(argv[i], "-o") == 0) {
-            if (i + 1 < argc && argv[i + 1][0] != '-') {
+            if (i + 1 < argc) {
                 args->output_file = argv[++i];
             } else {
                 lo3_error("-o requires a new filename", "");

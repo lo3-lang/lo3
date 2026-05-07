@@ -14,6 +14,8 @@
 #define getpid _getpid
 #else
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #endif
 
 FILE *openFile = NULL;
@@ -25,11 +27,14 @@ static int copy_file(const char *src, const char *dst) {
     if (!out) { fclose(in); return -1; }
     char buf[4096];
     size_t n;
-    while ((n = fread(buf, 1, sizeof(buf), in)) > 0)
-        fwrite(buf, 1, n, out);
+    int ok = 1;
+    while ((n = fread(buf, 1, sizeof(buf), in)) > 0) {
+        if (fwrite(buf, 1, n, out) != n) { ok = 0; break; }
+    }
+    if (ferror(in)) ok = 0;
     fclose(in);
     fclose(out);
-    return 0;
+    return ok ? 0 : -1;
 }
 
 static int has_upper_lo3_suffix(const char *name) {
@@ -120,12 +125,30 @@ int main(int argc, char *argv[]) {
 
     if (args.use_cpp) {
         make_tmp_path(cpp_tmp, sizeof(cpp_tmp), "cpp");
+#ifdef _WIN32
         char cmd[1024];
         snprintf(cmd, sizeof(cmd), "cpp -P \"%s\" -o \"%s\"", args.input_file, cpp_tmp);
         if (system(cmd) != 0) {
             lo3_error("C preprocessor failed!", args.input_file);
             return 1;
         }
+#else
+        pid_t pid = fork();
+        if (pid < 0) {
+            lo3_error("fork failed for C preprocessor", args.input_file);
+            return 1;
+        } else if (pid == 0) {
+            char *cpp_argv[] = {"cpp", "-P", (char *)args.input_file, "-o", cpp_tmp, NULL};
+            execvp("cpp", cpp_argv);
+            _exit(127);
+        } else {
+            int status;
+            if (waitpid(pid, &status, 0) < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+                lo3_error("C preprocessor failed!", args.input_file);
+                return 1;
+            }
+        }
+#endif
         run_file = cpp_tmp;
     }
 

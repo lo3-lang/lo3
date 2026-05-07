@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 file(STRINGS "version.txt" LO3_VERSION)
-project(lo3 VERSION ${LO3_VERSION} C)
+project(lo3 VERSION ${LO3_VERSION} LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
