@@ -2,6 +2,7 @@
 // Read the License file for more informations about the license.
 
 #include "./internal/core.h"
+#include <stdarg.h>
 
 void lo3_warn(const char *msg, const char *context) {
 
@@ -33,4 +34,11 @@ void lo3_error(const char *msg, const char *context) {
 	} else {
 		(void)fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
 	}
+}
+
+void lo3_printD(const char *fmt, ...) {
+	va_list ap;
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
 }

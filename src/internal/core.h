@@ -34,6 +34,7 @@ ssize_t lo3_getLine(char **lineptr, size_t *n, FILE *stream);
 
 void lo3_warn(const char *msg, const char *context);
 void lo3_error(const char *msg, const char *context);
+void lo3_printD(const char *fmt, ...);
 
 ///// from parsing.c /////
 extern int currentLine;
