@@ -37,6 +37,9 @@ void lo3_error(const char *msg, const char *context) {
 }
 
 void lo3_printD(const char *fmt, ...) {
+	if (fmt == NULL) {
+		return;
+	}
 	va_list ap;
 	va_start(ap, fmt);
 	vprintf(fmt, ap);

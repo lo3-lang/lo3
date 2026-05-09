@@ -6,6 +6,12 @@
 #include "internal/bare-var.h"
 #include "internal/cli.h"
 
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <unistd.h>
+#endif
+
 FILE *openFile = NULL;
 
 int main(int argc, char *argv[]) {
@@ -30,14 +36,22 @@ int main(int argc, char *argv[]) {
 
         case MODE_DRY_RUN: {
             char dry_tmp[256];
-            if (cli_make_tmp(dry_tmp, sizeof(dry_tmp), "dry") != 0) {
+            int dry_fd = -1;
+            if (cli_make_tmp(dry_tmp, sizeof(dry_tmp), "dry", &dry_fd) != 0) {
                 lo3_error("Could not create temp file for dry-run!", "");
                 return 1;
             }
             lo3_printD("lo3 dry-run: enter lo3 code (Ctrl+D when done):\n");
-            FILE *tmp = fopen(dry_tmp, "w");
+            FILE *tmp = fdopen(dry_fd, "w");
             if (!tmp) {
                 lo3_error("Could not create temp file for dry-run!", dry_tmp);
+                if (dry_fd >= 0) {
+#ifdef _WIN32
+                    _close(dry_fd);
+#else
+                    close(dry_fd);
+#endif
+                }
                 return 1;
             }
             char *line = NULL;
@@ -80,12 +94,22 @@ int main(int argc, char *argv[]) {
 
     const char *run_file = args.input_file;
     char cpp_tmp[256] = {0};
+    int cpp_fd = -1;
     int ret = 1;
 
     if (args.use_cpp) {
-        if (cli_make_tmp(cpp_tmp, sizeof(cpp_tmp), "cpp") != 0) {
+        if (cli_make_tmp(cpp_tmp, sizeof(cpp_tmp), "cpp", &cpp_fd) != 0) {
             lo3_error("Could not create temp file for cpp!", args.input_file);
             return 1;
+        }
+        // Close the fd since cli_run_cpp will write to the file by path
+        if (cpp_fd >= 0) {
+#ifdef _WIN32
+            _close(cpp_fd);
+#else
+            close(cpp_fd);
+#endif
+            cpp_fd = -1;
         }
         if (cli_run_cpp(args.input_file, cpp_tmp) != 0) {
             lo3_error("C preprocessor failed!", args.input_file);

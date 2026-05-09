@@ -10,6 +10,8 @@
 
 #ifdef _WIN32
 #include <process.h>
+#include <windows.h>
+#include <io.h>
 #else
 #include <unistd.h>
 #include <sys/types.h>
@@ -121,13 +123,43 @@ int cli_copy_file(const char *src, const char *dst) {
     return ok ? 0 : -1;
 }
 
-int cli_make_tmp(char *buf, size_t size, const char *prefix) {
+int cli_make_tmp(char *buf, size_t size, const char *prefix, int *fd_out) {
 #ifdef _WIN32
-    const char *tmp_dir = getenv("TEMP");
-    if (!tmp_dir) {
-        tmp_dir = "C:\\Temp";
+    char tmp_dir[MAX_PATH];
+    DWORD len = GetTempPathA(MAX_PATH, tmp_dir);
+    if (len == 0 || len > MAX_PATH) {
+        const char *fallback = getenv("TEMP");
+        if (!fallback) {
+            fallback = "C:\\Temp";
+        }
+        snprintf(tmp_dir, sizeof(tmp_dir), "%s", fallback);
     }
-    snprintf(buf, size, "%s\\lo3_%s_%d.lo3", tmp_dir, prefix, (int)_getpid());
+
+    // Generate unique filename using GUID-like approach with high-res counter
+    LARGE_INTEGER counter;
+    QueryPerformanceCounter(&counter);
+    snprintf(buf, size, "%s\\lo3_%s_%d_%lld.lo3", tmp_dir, prefix,
+             (int)_getpid(), (long long)counter.QuadPart);
+
+    // Create file atomically with CREATE_NEW flag
+    HANDLE hFile = CreateFileA(buf, GENERIC_WRITE | GENERIC_READ, 0, NULL,
+                               CREATE_NEW, FILE_ATTRIBUTE_TEMPORARY, NULL);
+    if (hFile == INVALID_HANDLE_VALUE) {
+        return -1;
+    }
+
+    // Convert Windows HANDLE to C file descriptor
+    int fd = _open_osfhandle((intptr_t)hFile, 0);
+    if (fd < 0) {
+        CloseHandle(hFile);
+        return -1;
+    }
+
+    if (fd_out) {
+        *fd_out = fd;
+    } else {
+        _close(fd);
+    }
     return 0;
 #else
     snprintf(buf, size, "/tmp/lo3_%s_XXXXXX", prefix);
@@ -135,7 +167,13 @@ int cli_make_tmp(char *buf, size_t size, const char *prefix) {
     if (fd < 0) {
         return -1;
     }
-    close(fd);
+
+    // Keep fd open and return it to caller to avoid TOCTOU
+    if (fd_out) {
+        *fd_out = fd;
+    } else {
+        close(fd);
+    }
     return 0;
 #endif
 }

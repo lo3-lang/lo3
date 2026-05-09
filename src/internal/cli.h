@@ -28,6 +28,6 @@ lo3_mode  cli_get_mode(const lo3_args *args);
 void      cli_help(void);
 void      cli_version(void);
 int       cli_copy_file(const char *src, const char *dst);
-int       cli_make_tmp(char *buf, size_t size, const char *prefix);
+int       cli_make_tmp(char *buf, size_t size, const char *prefix, int *fd_out);
 int       cli_run_cpp(const char *input, const char *output);
 int       cli_has_upper_ext(const char *name);
