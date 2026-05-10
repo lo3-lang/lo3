@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
                 lo3_error("Could not create temp file for dry-run!", "");
                 return 1;
             }
-            lo3_printD("lo3 dry-run: enter lo3 code (Ctrl+D when done):\n");
+            printf("lo3 dry-run: enter lo3 code (Ctrl+D when done):\n");
             FILE *tmp = fdopen(dry_fd, "w");
             if (!tmp) {
                 lo3_error("Could not create temp file for dry-run!", dry_tmp);

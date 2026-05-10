@@ -16,24 +16,26 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #endif
 
 #define BUF_SIZE 4096
 
 void cli_help(void) {
-    lo3_printD("Usage: lo3 [OPTIONS] [FILE]\n\n");
-    lo3_printD("  lo3 <FILE.lo3>                  Run a lo3 file\n");
-    lo3_printD("  lo3 <FILE.LO3>                  Run with C preprocessor first\n");
-    lo3_printD("  lo3 --cpp <FILE>                Run the C preprocessor on FILE before executing\n");
-    lo3_printD("  lo3 <FILE> -o <NEWNAME>         Copy FILE to NEWNAME and execute NEWNAME\n");
-    lo3_printD("  lo3 <FILE> --ignore-suffix      Execute FILE regardless of extension\n");
-    lo3_printD("  lo3 --dry-run, -n               Read lo3 from stdin and execute\n");
-    lo3_printD("  lo3 --version, -v               Show the current build version\n");
-    lo3_printD("  lo3 --help, -h                  Show this help message\n");
+    printf("Usage: lo3 [OPTIONS] [FILE]\n\n");
+    printf("  lo3 <FILE.lo3>                  Run a lo3 file\n");
+    printf("  lo3 <FILE.LO3>                  Run with C preprocessor first\n");
+    printf("  lo3 --cpp <FILE>                Run the C preprocessor on FILE before executing\n");
+    printf("  lo3 <FILE> -o <NEWNAME>         Copy FILE to NEWNAME and execute NEWNAME\n");
+    printf("  lo3 <FILE> --ignore-suffix      Execute FILE regardless of extension\n");
+    printf("  lo3 --dry-run, -n               Read lo3 from stdin and execute\n");
+    printf("  lo3 --version, -v               Show the current build version\n");
+    printf("  lo3 --help, -h                  Show this help message\n");
 }
 
 void cli_version(void) {
-    lo3_printD("lo3 version %s\n", LO3_VERSION);
+    printf("lo3 version %s\n", LO3_VERSION);
 }
 
 lo3_mode cli_get_mode(const lo3_args *args) {
@@ -90,19 +92,71 @@ int cli_parse(int argc, char *argv[], lo3_args *args) {
             return -1;
         }
     }
+    if (args->dry_run && args->input_file) {
+        lo3_error("--dry-run cannot be combined with an input file", args->input_file);
+        return -1;
+    }
     return 0;
 }
 
 int cli_copy_file(const char *src, const char *dst) {
+    // Reject same-file copies
+#ifdef _WIN32
+    if (strcmp(src, dst) == 0) {
+        lo3_error("Source and destination are the same file", dst);
+        return -1;
+    }
+#else
+    struct stat st_src, st_dst;
+    if (stat(src, &st_src) == 0 && stat(dst, &st_dst) == 0) {
+        if (st_src.st_dev == st_dst.st_dev && st_src.st_ino == st_dst.st_ino) {
+            lo3_error("Source and destination are the same file", dst);
+            return -1;
+        }
+    }
+#endif
+
     FILE *in = fopen(src, "rb");
     if (!in) {
         return -1;
     }
-    FILE *out = fopen(dst, "wb");
-    if (!out) {
+
+    // Open destination with exclusive-create to avoid clobbering existing files
+#ifdef _WIN32
+    HANDLE hFile = CreateFileA(dst, GENERIC_WRITE, 0, NULL,
+                               CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile == INVALID_HANDLE_VALUE) {
+        fclose(in);
+        lo3_error("Output file already exists or cannot be created", dst);
+        return -1;
+    }
+    int ofd = _open_osfhandle((intptr_t)hFile, 0);
+    if (ofd < 0) {
+        CloseHandle(hFile);
         fclose(in);
         return -1;
     }
+    FILE *out = _fdopen(ofd, "wb");
+#else
+    int ofd = open(dst, O_WRONLY | O_CREAT | O_EXCL, 0666);
+    if (ofd < 0) {
+        fclose(in);
+        lo3_error("Output file already exists or cannot be created", dst);
+        return -1;
+    }
+    FILE *out = fdopen(ofd, "wb");
+#endif
+    if (!out) {
+        fclose(in);
+#ifdef _WIN32
+        _close(ofd);
+#else
+        close(ofd);
+#endif
+        remove(dst);
+        return -1;
+    }
+
     char buf[BUF_SIZE];
     size_t n;
     int ok = 1;
