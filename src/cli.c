@@ -23,19 +23,21 @@
 #define BUF_SIZE 4096
 
 void cli_help(void) {
-    printf("Usage: lo3 [OPTIONS] [FILE]\n\n");
-    printf("  lo3 <FILE.lo3>                  Run a lo3 file\n");
-    printf("  lo3 <FILE.LO3>                  Run with C preprocessor first\n");
-    printf("  lo3 --cpp <FILE>                Run the C preprocessor on FILE before executing\n");
-    printf("  lo3 <FILE> -o <NEWNAME>         Copy FILE to NEWNAME and execute NEWNAME\n");
-    printf("  lo3 <FILE> --ignore-suffix      Execute FILE regardless of extension\n");
-    printf("  lo3 --dry-run, -n               Read lo3 from stdin and execute\n");
-    printf("  lo3 --version, -v               Show the current build version\n");
-    printf("  lo3 --help, -h                  Show this help message\n");
+    PRINTLI("Usage: lo3 [OPTIONS] [FILE]\n\n");
+    PRINTLI("  lo3 <FILE.lo3>                  Run a lo3 file\n");
+    PRINTLI("  lo3 <FILE.LO3>                  Run with C preprocessor first\n");
+    PRINTLI("  lo3 --cpp <FILE>                Run the C preprocessor on FILE before executing\n");
+    PRINTLI("  lo3 <FILE> -o <NEWNAME>         Copy FILE to NEWNAME and execute NEWNAME\n");
+    PRINTLI("  lo3 <FILE> --ignore-suffix      Execute FILE regardless of extension\n");
+    PRINTLI("  lo3 --dry-run, -n               Read lo3 from stdin and execute\n");
+    PRINTLI("  lo3 --version, -v               Show the current build version\n");
+    PRINTLI("  lo3 --help, -h                  Show this help message\n");
 }
 
 void cli_version(void) {
-    printf("lo3 version %s\n", LO3_VERSION);
+    char ver_buf[64];
+    snprintf(ver_buf, sizeof(ver_buf), "lo3 version %s\n", LO3_VERSION);
+    PRINTLI(ver_buf);
 }
 
 lo3_mode cli_get_mode(const lo3_args *args) {
