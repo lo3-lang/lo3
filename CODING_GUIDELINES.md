@@ -218,11 +218,11 @@ but only when there is a clear reason to do it that way.
 
 ## Comments
 
-Single-line:
+Single-line comments use `//` only. `/*` and `*/` are **not** allowed for single-line comments:
 
 ```c
-/* this is a comment */
-// this is also fine
+// this is correct
+/* this is wrong for a single-line comment */
 ```
 
 Multi-line — use `/*` / `*/` with a leading `*` on every body line.
