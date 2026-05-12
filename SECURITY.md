@@ -6,8 +6,11 @@ What to know which versions are currently supported for security updates?
 
 | Version | Supported          |
 | ------- | ------------------ |
-| v0.1.0   | :white_check_mark: |
+| v0.2.0   | :white_check_mark: |
 
+> [!NOTE]
+> Only the full version (v1) will get security updates later on.
+> 
 ## Reporting a Vulnerability
 
 If it is just a normal security update create an issue in the corresponding repository.
