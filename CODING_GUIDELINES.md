@@ -10,6 +10,7 @@ All contributions must follow these rules.
 - **C11** only. Do not upgrade or downgrade.
 - Do **not** use compiler-specific extensions or features.
   - Exception: `sizeof()` is allowed.
+  - Exception: `asm()` is allowed for inline assembly (see Assembly section).
 - The C preprocessor is allowed and encouraged where appropriate.
 
 ---
