@@ -34,3 +34,4 @@ void lo3_error(const char *msg, const char *context) {
 		(void)fprintf(stderr, CLR_BOLD CLR_RED "[ERROR]: %s \n" CLR_RESET, msg);
 	}
 }
+
