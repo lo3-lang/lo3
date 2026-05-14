@@ -4,8 +4,6 @@
 #include "./internal/cli.h"
 #include "./internal/core.h"
 #include "version.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #ifdef _WIN32
@@ -24,14 +22,14 @@
 
 void cli_help(void) {
     PRINTLI("Usage: lo3 [OPTIONS] [FILE]");
-    PRINTLI("  lo3 <FILE.lo3>                  Run a lo3 file");
-    PRINTLI("  lo3 <FILE.LO3>                  Run with C preprocessor first");
-    PRINTLI("  lo3 --cpp <FILE>                Run the C preprocessor on FILE before executing");
-    PRINTLI("  lo3 <FILE> -o <NEWNAME>         Copy FILE to NEWNAME and execute NEWNAME");
-    PRINTLI("  lo3 <FILE> --ignore-suffix      Execute FILE regardless of extension");
-    PRINTLI("  lo3 --dry-run, -n               Read lo3 from stdin and execute");
-    PRINTLI("  lo3 --version, -v               Show the current build version");
-    PRINTLI("  lo3 --help, -h                  Show this help message");
+    PRINTLI("  lo3 <FILE.lo3>: Run a lo3 file");
+    PRINTLI("  lo3 <FILE.LO3>: Run with C preprocessor first");
+    PRINTLI("  lo3 --cpp <FILE>: Run the C preprocessor on FILE before executing");
+    PRINTLI("  lo3 <FILE> -o <NEWNAME>: Copy FILE to NEWNAME and execute NEWNAME");
+    PRINTLI("  lo3 <FILE> --ignore-suffix: Execute FILE regardless of extension");
+    PRINTLI("  lo3 --dry-run, -n: Read lo3 from stdin and execute");
+    PRINTLI("  lo3 --version, -v: Show the current build version");
+    PRINTLI("  lo3 --help, -h: Show this help message");
 }
 
 void cli_version(void) {
@@ -41,9 +39,15 @@ void cli_version(void) {
 }
 
 lo3_mode cli_get_mode(const lo3_args *args) {
-    if (args->show_help)    return MODE_HELP;
-    if (args->show_version) return MODE_VERSION;
-    if (args->dry_run)      return MODE_DRY_RUN;
+    if (args->show_help) {
+        return MODE_HELP;
+    }
+    if (args->show_version) {
+        return MODE_VERSION;
+    }
+    if (args->dry_run) {
+        return MODE_DRY_RUN;
+    }
     return MODE_NORMAL;
 }
 
@@ -76,6 +80,10 @@ int cli_parse(int argc, char *argv[], lo3_args *args) {
 
         } else if (strcmp(argv[i], "-o") == 0) {
             if (i + 1 < argc) {
+                if (args->output_file) {
+                    lo3_error("Multiple output files are not supported", argv[i + 1]);
+                    return -1;
+                }
                 args->output_file = argv[++i];
             } else {
                 lo3_error("-o requires a new filename", "");
@@ -120,6 +128,7 @@ int cli_copy_file(const char *src, const char *dst) {
 
     FILE *in = fopen(src, "rb");
     if (!in) {
+        lo3_error("Cannot open source file", src);
         return -1;
     }
 
@@ -136,6 +145,7 @@ int cli_copy_file(const char *src, const char *dst) {
     if (ofd < 0) {
         CloseHandle(hFile);
         fclose(in);
+        remove(dst);
         return -1;
     }
     FILE *out = _fdopen(ofd, "wb");
@@ -208,6 +218,7 @@ int cli_make_tmp(char *buf, size_t size, const char *prefix, int *fd_out) {
     int fd = _open_osfhandle((intptr_t)hFile, 0);
     if (fd < 0) {
         CloseHandle(hFile);
+        DeleteFileA(buf);
         return -1;
     }
 

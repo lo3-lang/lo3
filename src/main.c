@@ -52,16 +52,15 @@ int main(int argc, char *argv[]) {
                     close(dry_fd);
 #endif
                 }
+                remove(dry_tmp);
                 return 1;
             }
             char *line = NULL;
             size_t len = 0;
             while (GETLINE(&line, &len, stdin)) {
                 fputs(line, tmp);
-                free(line);
-                line = NULL;
-                len = 0;
             }
+            free(line);
             fclose(tmp);
             FILE *file = fopen(dry_tmp, "r");
             if (!file) {
